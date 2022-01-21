@@ -1,0 +1,20 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "server:dev": "nodemon server.js",
+    "seeds": "mongo < ./db/seeds.js",
+    "seeds-all": "mongo < ./db/cards.js && mongo < ./db/seeds.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2",
+    "mongodb": "^4.3.1",
+    "nodemon": "^2.0.15"
+  }
+}
