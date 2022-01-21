@@ -11,7 +11,7 @@ function GameGrid({gridState}) {
     })
 
   return <div className = "game-grid">
-  <p> game grid</p>
+  
   {gridNodes}
 
   </div>;
