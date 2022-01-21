@@ -167,32 +167,32 @@ db.game.insertOne({
         "coal_card": {
             "image url": null
         }
-    }
-},
+    },
 
-   // "game_state": {     // could add this as an extension to allow game state to persist!?
-    //     "deck": [{tile_card Object}, {...}, ...],
-    //     "player_cards": [{player_card Object}, {...}, ...],
-    //     "special_cards": [{special_card Object}, {...}, ...],
-    //     "players": [  
-    //         {
-    //             "name": "string",
-    //             "hand": [{tile_card Object},{...},{...},{...},{...},{player_card Object}],
-    //             "score": number,
-    //             ...
-    //         }
-    //     ],  
-    //     "game_grid": [
-    //         {
-    //             "row_ref": number,
-    //             "col_ref": number,
-    //             "card": {tile_card Object}
-    //         }, 
-    //         {...}, 
-    //         ...
-    //     ]  // store game state.
-    //     "player_turn": {player Object}
-    // }
-)
+   "game_state":{
+        "deck": [],
+        "player_cards": [],
+        "players": [], 
+            // {
+            //     "name": "string",
+            //     "hand": [{tile_card Object},{...},{...},{...},{...}]
+            //     "player_card": {player_card Object}
+            //     "score": number,
+            //     ...
+            // }
+        // ],  
+        "game_grid": [],
+            // {
+            //     "row_ref": number,
+            //     "col_ref": number,
+            //     "card": {tile_card Object}
+            // }, 
+            // {...}, 
+            // ...
+        // ],
+        "player_turn": null
+    }
+
+})
 
  
