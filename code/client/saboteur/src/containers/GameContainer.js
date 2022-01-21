@@ -18,7 +18,7 @@ const [gridState, setGridState] = useState([
 
   return <div className= "game-container">
   <p>This is game container</p>
-  <GameGrid/>
+  <GameGrid  gridState={gridState}/>
  
 
   </div>;

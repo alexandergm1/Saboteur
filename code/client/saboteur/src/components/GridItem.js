@@ -1,9 +1,12 @@
 import React from 'react';
 
-function GridItem() {
+function GridItem({row, col}) {
   return <div className = "grid-item">
-<p> grid item </p>
+    <div id={row.toString() + col.toString()}>
+    {row.toString() + "-" + col.toString() }
+    </div>
   </div>;
+  
 }
 
 export default GridItem;
