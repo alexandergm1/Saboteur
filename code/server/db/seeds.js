@@ -17,43 +17,62 @@ db.game.insertMany([
                     "right-bottom": false
                  },    // Boolean values, read backwards for inverted cards.
                 "inverted": false,
-                "image url": "https://ibb.co/LZ5MYX5"
+                "image url": "https://i.ibb.co/JsQNmwQ/left-right.png"
             }
         ],
-        "player_cards": [
-            {
-                "name": "string"
-                ...
-            }
-        ],
-        "special_cards": [
-            {
-                name: "string"
-                ...
-            }
-        ]
-    },
-    "game_state": {     // could add this as an extension to allow game state to persist!?
-        "deck": [{tile_card Object}, {...}, ...],
-        "player_cards": [{player_card Object}, {...}, ...],
-        "special_cards": [{special_card Object}, {...}, ...],
-        "players": [  
-            {
-                "name": "string",
-                "hand": [{tile_card Object},{...},{...},{...},{...},{player_card Object}],
-                "score": number,
-                ...
-            }
-        ],  
-        "game_grid": [
-            {
-                "row_ref": number,
-                "col_ref": number,
-                "card": {tile_card Object}
-            }, 
-            {...}, 
-            ...
-        ]  // store game state.
-        "player_turn": {player Object}
+
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //     "player_cards": [
+    //         {
+    //             "name": "string"
+    //             ...
+    //         }
+    //     ],
+    //     "special_cards": [
+    //         {
+    //             name: "string"
+    //             ...
+    //         }
+    //     ]
+    // },
+    // "game_state": {     // could add this as an extension to allow game state to persist!?
+    //     "deck": [{tile_card Object}, {...}, ...],
+    //     "player_cards": [{player_card Object}, {...}, ...],
+    //     "special_cards": [{special_card Object}, {...}, ...],
+    //     "players": [  
+    //         {
+    //             "name": "string",
+    //             "hand": [{tile_card Object},{...},{...},{...},{...},{player_card Object}],
+    //             "score": number,
+    //             ...
+    //         }
+    //     ],  
+    //     "game_grid": [
+    //         {
+    //             "row_ref": number,
+    //             "col_ref": number,
+    //             "card": {tile_card Object}
+    //         }, 
+    //         {...}, 
+    //         ...
+    //     ]  // store game state.
+    //     "player_turn": {player Object}
+    // }
