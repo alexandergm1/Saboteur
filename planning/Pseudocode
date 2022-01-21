@@ -1,0 +1,45 @@
+Initialise Game (GameContainer)
+
+    set players (players)
+        post players to API;
+
+    initialise game_grid()
+        fetch start card from API;
+        fetch gold card from API;
+        fetch 2x coal cards from API;
+        put start card, gold card & 2x coal card onto game_grid API;
+
+    shuffle deck()
+        fetch deck from API;
+        shuffle deck;
+        put shuffled deck back to API;
+    
+    shuffle player_card deck()
+        fetch player_card deck from API;
+        shuffle deck;
+        put shuffled player_card deck back to API;      
+
+    set player roles(players)
+        for (players in game)
+            fetch/delete top player_card from deck API;
+            put card to players role API;
+    
+    deal player hands(players)
+        for (players in game)
+            fetch/delete top five cards from deck API;
+            put cards to players hand API;
+    
+        
+    
+
+
+    
+
+
+
+
+
+
+
+
+
