@@ -32,28 +32,34 @@ Initialise Game
     post player_turn player[0] to API; 
 
 Players Turn(player)
-
+    
     grid tile(row_ref, col_ref) = fetch game_grid by (row_ref, col_ref);
-    neighbouring tiles = fetch game_grid by (row_ref, col_ref)
 
-    place card(card_from hand, grid slot)
+    place card(card from hand, grid slot)
         if (grid tile != null)
             return "can not place card here";
-        else if (neighouring )
+        else if (tiles neighours conflicts with card_from hand connections )
+            return "can not place card here";
+        else if (grid slot(card from hand) != connect to start card )
+            return "can not place card here";
+        else 
+            put grid slot(card from hand) to API;
+            delete card from hand in game_state.players.hand API;
+            put player turn to next player API
+    
+    discard card(card)
+        play selects card from hand;
+        press submit discard button ;
+        delete card form players hand API;
+        fetch/delete top card from deck API;
+        put card to players hand API;
+        put player turn to next player API;
 
 
-"game_grid": {
-    null, null, null, null, null, null, null, null, null, null,
-    null, null, null, null, null, null, null, null, null, null,
-    null, null, null, null, null, null, null, null, null, null,
-    null, null, null, null, null, null, null, null, null, null,
-    null, null, null, null, null, null, null, null, null, null,
-    null, null, null, null, null, null, null, null, null, null,
-    null, null, null, null, null, null, null, null, null, null,
-    null, null, null, null, null, null, null, null, null, null,
-    null, null, null, null, null, null, null, null, null, null,
-    null, null, null, null, null, null, null, null, null, null,
-    }
+
+
+
+
         
 
     
