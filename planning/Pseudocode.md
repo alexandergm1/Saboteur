@@ -56,6 +56,17 @@ Players Turn(player)
         put player turn to next player API;
 
 
+Conditions for game to end
+
+    if (deck is empty)
+    if (path from start card to gold card is made)
+
+    on game end 
+        freeze game state;
+        play animation;
+        display score ;
+
+
 
 
 
