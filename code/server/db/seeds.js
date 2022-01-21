@@ -2,98 +2,175 @@ use saboteur;
 db.dropDatabase();
 
 db.game.insertOne({
+    "cards": {
 
-        "cards": {
-            "tile_cards":{
-                
-                    "path-left-to-right": {
+        "tile_cards":{
+
+                "path-left-to-right": {
                     "entries": {
                         "top": false, 
                         "right": true, 
                         "bottom": false, 
-                        "left": true},
+                        "left": true
+                    },
                     "connections": {
                         "left-right": true,
                         "top-bottom": false,
-                        "top-right": false,
                         "top-left": false,
                         "left-bottom": false,
-                        "right-bottom": false
                     },
                     "inverted": false,
                     "image url": "https://i.ibb.co/JsQNmwQ/left-right.png"
                 },
-            
-                    "path-left-to-bottom-to-right": {
+        
+                "path-left-to-bottom-to-right": {
                     "entries": {
                         "top": false,
-                        "right": true, 
-                        "bottom": true, 
-                        "left": true},
+                        "right": true,
+                        "bottom": true,
+                        "left": true
+                    },
                     "connections": {
                         "left-right": true,
                         "top-bottom": false,
-                        "top-right": false,
                         "top-left": false,
                         "left-bottom": true,
-                        "right-bottom": true
                     },
                     "inverted": false,
                     "image url": "https://i.ibb.co/93x3pmJ/left-to-bottom-to-right.png"
                 },
-                
-                "path-bottom-to-right": {
-                "entries": {
-                    "top": false,
-                    "right": true,
-                    "bottom": true, 
-                    "left": true
+            
+                "path-top-to-left": {
+                    "entries": {
+                        "top": true,
+                        "right": false,
+                        "bottom": false,
+                        "left": true
+                    },
+                    "connections": {
+                        "left-right": false,
+                        "top-bottom": false,
+                        "top-left": true,
+                        "left-bottom": false,
+                    },
+                    "inverted": false,
+                    "image url": "https://i.ibb.co/JQJDfQT/bottom-right.png"
                 },
-                "connections": {
-                    "left-right": false,
-                    "top-bottom": false,
-                    "top-right": false,
-                    "top-left": false,
-                    "left-bottom": false,
-                    "right-bottom": true
+
+                "path-bottom-to-left": {
+                    "entries": {
+                        "top": false,
+                        "right": false,
+                        "bottom": true, 
+                        "left": true
+                    },
+                    "connections": {
+                        "left-right": false,
+                        "top-bottom": false,
+                        "top-left": false,
+                        "left-bottom": true,
+                    },
+                    "inverted": false,
+                    "image url": "https://i.ibb.co/b290VQf/top-to-right.png"
                 },
-                "inverted": false,
-                "image url": "https://i.ibb.co/JQJDfQT/bottom-right.png"
+
+                "path-bottom-to-top": {
+                    "entries": {
+                        "top": true,
+                        "right": false,
+                        "bottom": true, 
+                        "left": false
+                    },
+                    "connections": {
+                        "left-right": false,
+                        "top-bottom": true,
+                        "top-left": false,
+                        "left-bottom": false,
+                    },
+                    "inverted": false,
+                    "image url": "https://i.ibb.co/B4R57NG/bottom-to-top.png"
+                },
+
+                "path-bottom-to-left-to-top": {
+                    "entries": {
+                        "top": true,
+                        "right": false,
+                        "bottom": true, 
+                        "left": true
+                    },
+                    "connections": {
+                        "left-right": false,
+                        "top-bottom": false,
+                        "top-left": true,
+                        "left-bottom": true,
+                    },
+                    "inverted": false,
+                    "image url": "https://i.ibb.co/mG4wcTk/bottom-to-left-to-top.png"
+                },
+
+                "path-cross": {
+                    "entries": {
+                        "top": true,
+                        "right": true,
+                        "bottom": true, 
+                        "left": true
+                    },
+                    "connections": {
+                        "left-right": true,
+                        "top-bottom": true,
+                        "top-left": true,
+                        "left-bottom": true,
+                    },
+                    "inverted": false,
+                    "image url": "https://i.ibb.co/QcsqgnV/cross.png"
+                },
+
+                "start-card": {
+                    "entries": {
+                        "top": true,
+                        "right": true,
+                        "bottom": true, 
+                        "left": true
+                    },
+                    "connections": {
+                        "left-right": true,
+                        "top-bottom": true,
+                        "top-left": true,
+                        "left-bottom": true,
+                    },
+                    "inverted": false,
+                    "image url": null
                 }
+        
+        },
+
+        "special_cards": {},
+
+        "player_cards" :{
+            "miner" : {
+                "image url": null
+            },
+
+            "saboteur" : {
+                "image url": null
             }
+        },
+        
+        "card_back":{
+            "image url": null
+        },
+
+        "gold_card": {
+            "image url": null
+        },
+
+        "coal_card": {
+            "image url": null
         }
-    })
+    }
+},
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //     "player_cards": [
-    //         {
-    //             "name": "string"
-    //             ...
-    //         }
-    //     ],
-    //     "special_cards": [
-    //         {
-    //             name: "string"
-    //             ...
-    //         }
-    //     ]
-    // },
-    // "game_state": {     // could add this as an extension to allow game state to persist!?
+   // "game_state": {     // could add this as an extension to allow game state to persist!?
     //     "deck": [{tile_card Object}, {...}, ...],
     //     "player_cards": [{player_card Object}, {...}, ...],
     //     "special_cards": [{special_card Object}, {...}, ...],
@@ -116,3 +193,6 @@ db.game.insertOne({
     //     ]  // store game state.
     //     "player_turn": {player Object}
     // }
+)
+
+ 
