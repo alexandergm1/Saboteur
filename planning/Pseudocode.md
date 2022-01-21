@@ -35,6 +35,9 @@ Players Turn(player)
     
     grid tile(row_ref, col_ref) = fetch game_grid by (row_ref, col_ref);
 
+    rotate card(card from hand)
+        put card from hand !inverted to API;
+
     place card(card from hand, grid slot)
         if (grid tile != null)
             return "can not place card here";
