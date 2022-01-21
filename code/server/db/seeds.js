@@ -1,28 +1,68 @@
 use saboteur;
 db.dropDatabase();
 
-db.game.insertMany([
-{
-    "cards": {
-        "tile_cards": [
-            {
-                "name": "path-left-to-right",     // Type of card, ie 'straight' or 'right turn'
-                "entries": {"top": false, "right": true, "bottom": false, "left": true},    // Boolean values, read backwards for inverted cards.
+db.game.insertOne({
+
+        "cards": {
+            "tile_cards":{
+                
+                    "path-left-to-right": {
+                    "entries": {
+                        "top": false, 
+                        "right": true, 
+                        "bottom": false, 
+                        "left": true},
+                    "connections": {
+                        "left-right": true,
+                        "top-bottom": false,
+                        "top-right": false,
+                        "top-left": false,
+                        "left-bottom": false,
+                        "right-bottom": false
+                    },
+                    "inverted": false,
+                    "image url": "https://i.ibb.co/JsQNmwQ/left-right.png"
+                },
+            
+                    "path-left-to-bottom-to-right": {
+                    "entries": {
+                        "top": false,
+                        "right": true, 
+                        "bottom": true, 
+                        "left": true},
+                    "connections": {
+                        "left-right": true,
+                        "top-bottom": false,
+                        "top-right": false,
+                        "top-left": false,
+                        "left-bottom": true,
+                        "right-bottom": true
+                    },
+                    "inverted": false,
+                    "image url": "https://i.ibb.co/93x3pmJ/left-to-bottom-to-right.png"
+                },
+                
+                "path-bottom-to-right": {
+                "entries": {
+                    "top": false,
+                    "right": true,
+                    "bottom": true, 
+                    "left": true
+                },
                 "connections": {
-                    "left-right": true,
+                    "left-right": false,
                     "top-bottom": false,
                     "top-right": false,
                     "top-left": false,
                     "left-bottom": false,
-                    "right-bottom": false
-                 },    // Boolean values, read backwards for inverted cards.
+                    "right-bottom": true
+                },
                 "inverted": false,
-                "image url": "https://i.ibb.co/JsQNmwQ/left-right.png"
+                "image url": "https://i.ibb.co/JQJDfQT/bottom-right.png"
+                }
             }
-        ],
-
-    }
-}
+        }
+    })
 
 
 
