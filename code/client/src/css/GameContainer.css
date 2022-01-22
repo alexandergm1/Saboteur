@@ -5,13 +5,7 @@
     margin-left: 5px;
     margin-top: 5px;;
     position: fixed;
-    display: flex;
-    flex-direction: column;
-}
-
-body {
     display: grid;
-    flex-direction: row;
 }
 
 
