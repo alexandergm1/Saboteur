@@ -24,3 +24,13 @@
     width: 20%;
     border: solid blue 5px;
 }
+
+#deck {
+    width : 75px;
+    border : 2px solid black;
+    border-radius: 10px;
+    height : 110px;
+    position: relative;
+    top: 200px;
+    left: 100px;
+}
