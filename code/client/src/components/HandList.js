@@ -1,16 +1,16 @@
 import React from 'react';
 import Card from './Card';
 
-function HandList({card}) {
+function HandList({cards}) {
 
-   const cardNodes = card.map((row, rowIndex) => {
-    return row.map((item, colIndex) => {
-        return (<Card  row = {rowIndex} col={colIndex} card={card} key = {rowIndex.toString() + colIndex.toString()}/>)
+   const cardNodes =  cards.map((card, index) => {
+    
+        return (<Card  key = {index} card={card}/>)
     })
        
-   })
   
-  return <div>
+  
+  return <div id="hand-list">
       <p>I am a hand list</p>
       {cardNodes}
   </div>;

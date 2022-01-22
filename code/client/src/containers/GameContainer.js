@@ -1,5 +1,6 @@
 import React,{useEffect, useState} from 'react';
 import GameGrid from '../components/GameGrid';
+import HandList from '../components/HandList';
 import Loading from '../components/Loading';
 
 import {getData} from '../GameService'
@@ -10,6 +11,7 @@ function GameContainer() {
   const [loading, setLoading] = useState(true)
   const [gameActive, setGameActive] = useState(false)
   const [cards, setCards] = useState(null)
+  const [playerHand, setPlayerHand] = useState([])
   const [gridState, setGridState] = useState([
       [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
       [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}], 
@@ -29,6 +31,7 @@ function GameContainer() {
     if(Object.keys(data).length === 0) return 
     console.log(`data: ${data}`)
     getCards();
+    dealHand()
   }, [data, gameActive])
   
   const getCards = () => {
@@ -61,6 +64,10 @@ function GameContainer() {
     console.log('starting game')
     setGameActive(true);
   }
+  const dealHand = () => {
+    const cardData = Object.values(data.cards.tile_cards).splice(0,5)
+    setPlayerHand(cardData)
+  }
 
   // if((loading)){
   //   return <div className= "game-container">
@@ -72,6 +79,9 @@ function GameContainer() {
       <div className= "game-container">
         <GameGrid  gridState={gridState}/>
         <button onClick={handleStartClick}>Start Game</button>
+        <div className="hand-container">
+          <HandList cards={playerHand}/>
+        </div>
       </div>
     )
   // }
