@@ -98,13 +98,14 @@ function GameContainer() {
   // else{
     return (
       <div className= "game-container">
+        <div className='main-container'>
           <GameGrid  gridState={gridState}/>
           <button onClick={handleStartClick}>Start Game</button>
         <div className="hand-container">
           <HandList cards={playerHand}/>
         </div>
+        </div>
         <div className='menu-container'>
-          <h2>Menu Container</h2>
         </div>
       </div>
     )

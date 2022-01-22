@@ -1,17 +1,26 @@
 .game-container {
-    border: solid black 5px;
+    border: solid #000000 5px;
     height: 100%;
-    width: 80%;
+    width: 100%;
     margin-left: 5px;
-    margin-top: 5px;;
+    margin-top: 5px;
+    /* display: grid;
+    grid-template-areas: 
+    'main menu';
+    grid-template-columns: 8fr 2fr; */
+    display: flex;
+    flex-direction: row;
     position: fixed;
-    display: grid;
+}
+
+.main-container {
+    width: 80%;
+    height: 100%;
 }
 
 
 .menu-container {
     height: 100%;
     width: 20%;
-    position: fixed;
     border: solid blue 5px;
 }
