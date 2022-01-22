@@ -8,8 +8,9 @@ function GameContainer() {
   
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true)
-  const [gameActive, setGameActive] = useState(false)
+  const [clickToggle, setClickToggle] = useState(false)
   const [cards, setCards] = useState(null)
+  const [deck, setDeck] = useState([])
   const [gridState, setGridState] = useState([
       [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
       [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}], 
@@ -29,27 +30,43 @@ function GameContainer() {
     if(Object.keys(data).length === 0) return 
     console.log(`data: ${data}`)
     getCards();
-  }, [data, gameActive])
+    buildDeck();
+  }, [data, clickToggle])
   
+
+
+  const buildDeck = () => {
+    const deck = []
+    const cardData = Object.values(data.cards.tile_cards)
+    console.log(cardData)
+    for (let step = 0; step < 5; step++){
+      for (let card of cardData)
+        deck.push(card)
+    }
+    // Shuffle deck
+    let currentIndex = deck.length,  randomIndex
+    while (currentIndex != 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+      [deck[currentIndex], deck[randomIndex]] = [
+        deck[randomIndex], deck[currentIndex]];
+    }
+    setDeck(deck)
+  }
+
   const getCards = () => {
     const cardData = data.cards.tile_cards
-    console.log(`card data: ${cardData}`)
     setCards(cardData)
   }
 
- useEffect(() => {
-    if(!cards) return
-    console.log(cards)
-    placeCard()
-    setGameActive(false)
- }, [gameActive])
 
   const placeCard = () => {
     const row = Math.floor(Math.random()*6);
     const col = Math.floor(Math.random()*10);
     const tempArr = gridState
-    tempArr[row].splice(col, 1, cards['start-card'])
+    tempArr[row].splice(col, 1, deck[0])
     setGridState(tempArr)
+    setClickToggle(!clickToggle)
   }
 
   // const setupNewGame = () => {
@@ -59,7 +76,7 @@ function GameContainer() {
 
   const handleStartClick = () => {
     console.log('starting game')
-    setGameActive(true);
+    placeCard()
   }
 
   // if((loading)){
