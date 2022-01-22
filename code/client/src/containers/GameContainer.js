@@ -1,59 +1,65 @@
 import React,{useEffect, useState} from 'react';
 import GameGrid from '../components/GameGrid';
-import GridItem from '../components/GridItem';
-import HandList from '../components/HandList';
-import {getData} from '../GameService'
-
-function GameContainer() {
-
-const [data, setData] = useState({})
-const [cards, setCards] = useState([])
-const [card, setCard] = useState([])
-
-const [gridState, setGridState] = useState([
-    [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
-    [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}], 
-    [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}], 
-    [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}], 
-    [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}], 
-    [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}], 
-    [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]    
-])
-
-useEffect (() => {
-  getData()
-  .then(data => setData(data))
-}, [gridState])
-
-  const delay = ms => new Promise((res) => setTimeout(res,ms))
   
+  const [data, setData] = useState();
+  const [loading, setLoading] = useState(true)
+  const [cards, setCards] = useState([])
+  const [gridState, setGridState] = useState([
+      [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
+      [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}], 
+      [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}], 
+      [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
+      [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}], 
+      [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}], 
+      [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]    
+  ])
 
-  const getCards = async() => {
-    await delay(2000)
-    // console.log(data[0])
-    const cardData = data[0].cards.tile_cards
-    // console.log(cardData)
+  useEffect (() => {
+    getData()
+    .then(data => setData(data[0]))
+  }, [gridState])
+
+  // getData()
+  // .catch(e => console.log(e))
+  // .finally(() => {isLoading = false})
+  // .then(data => setData(data))
+
+  const getCards = () => {
+    // return new Promise((resolve, reject) => {
+    //   if(data.cards.tile_cards){
+    //     resolve(setCards(data.cards.tile_cards))
+    //   } else {
+    //     reject(new(Error("Data failed to load")))
+    //   }
+    // })
+    const cardData = data.cards.tile_cards
     setCards(cardData)
   }
 
-  const placeCard = async() => {
-    await delay(5000)
+  const placeCard = () => {
     const tempArr = gridState
-    tempArr[0].splice(0, 1, cards["start-card"])
+    tempArr[0].splice(0, 1, cards['start-card'])
     setGridState(tempArr)
   }
 
-  getCards()
-  .then(placeCard())
+  const setupNewGame = () => {
+    getCards()
+    setLoading(false);
+  }
 
-
-  return (<div className= "game-container">
-  <p>This is game container</p>
-  <GameGrid  gridState={gridState}/>
-  <div className="hand-container">
-  <HandList  card={card}/>
-  </div>
-  </div>)
+  if((loading)){
+    return <div className= "game-container">
+      <Loading setupNewGame={setupNewGame}/>
+    </div>;
+  }
+  else{
+    return (
+      <div className= "game-container">
+        <GameGrid  gridState={gridState}/>
+        <button onClick={handleStartClick}>Start Game</button>
+      </div>
+    )
+  }
 }
 
 export default GameContainer;
