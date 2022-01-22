@@ -28,7 +28,6 @@ function GameContainer() {
   
   useEffect(() => {
     if(Object.keys(data).length === 0) return 
-    console.log(`data: ${data}`)
     getCards();
     buildDeck();
   }, [data, clickToggle])
@@ -61,21 +60,18 @@ function GameContainer() {
 
 
   const placeCard = () => {
-    const row = Math.floor(Math.random()*6);
-    const col = Math.floor(Math.random()*10);
+    const row = Math.floor(Math.random()*7);
+    const col = Math.floor(Math.random()*11);
     const tempArr = gridState
     tempArr[row].splice(col, 1, deck[0])
     setGridState(tempArr)
-    setClickToggle(!clickToggle)
+  setClickToggle(!clickToggle);
   }
 
-  // const setupNewGame = () => {
-  //   // getCards()
-  //   setLoading(false);
-  // }
 
   const handleStartClick = () => {
     console.log('starting game')
+    if(!cards) return
     placeCard()
   }
 
@@ -94,4 +90,4 @@ function GameContainer() {
   // }
 }
 
-export default GameContainer;
+export default GameContainer
