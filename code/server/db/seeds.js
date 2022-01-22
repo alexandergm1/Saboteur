@@ -139,7 +139,8 @@ db.game.insertOne({
                         "left-bottom": true,
                     },
                     "inverted": false,
-                    "image_url": null
+                    "image_url": "https://i.ibb.co/QcsqgnV/cross.png"
+
                 }
         
         ],
