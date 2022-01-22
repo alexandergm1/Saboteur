@@ -89,6 +89,10 @@ function GameContainer() {
 
   }
 
+  const reorderHand = (hand) => {
+    setPlayerHand(hand)
+  }
+
   // if((loading)){
   //   return <div className= "game-container">
   //     <Loading setupNewGame={setupNewGame}/>
@@ -101,7 +105,7 @@ function GameContainer() {
           <GameGrid  gridState={gridState}/>
           <button onClick={handleStartClick}>Start Game</button>
         <div className="hand-container">
-          <HandList cards={playerHand}/>
+          <HandList cards={playerHand} reorderHand = {reorderHand}/>
         </div>
         </div>
         <div className='menu-container'>
