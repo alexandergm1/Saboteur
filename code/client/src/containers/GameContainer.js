@@ -69,7 +69,7 @@ function GameContainer() {
     const row = Math.floor(Math.random()*6);
     const col = Math.floor(Math.random()*10);
     const tempArr = gridState
-    tempArr[row].splice(col, 1, cards[7])
+    tempArr[row].splice(col, 1, deck[0])
     setGridState(tempArr)
     setClickToggle(!clickToggle);
   }
@@ -83,16 +83,6 @@ function GameContainer() {
     const cardData = Object.values(data.cards.tile_cards).splice(0,5)
     setPlayerHand(cardData)
   }
-
-  const handleStartClick = () => {
-    const row = Math.floor(Math.random()*7);
-    const col = Math.floor(Math.random()*11);
-    const tempArr = gridState
-    tempArr[row].splice(col, 1, deck[0])
-    setGridState(tempArr)
-  setClickToggle(!clickToggle);
-  }
-
 
   const handleStartClick = () => {
     console.log('starting game')

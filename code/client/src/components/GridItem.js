@@ -12,11 +12,11 @@ function GridItem({row, col, item}) {
   return <div className = "grid-item" style={{backgroundImage: `url(${item.image_url})`, backgroundSize: 'cover'}}>
     <div id={row.toString() + "-" + col.toString()}>
     {row.toString() + "-" + col.toString()}<br></br>
-    {dummyVal}
     <div id={row.toString() + "-" + col.toString()}>
     
     </div>
-  </div>;
+  </div>
+  </div>
 }
 
-export default GridItem;
+export default GridItem
