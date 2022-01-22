@@ -2,6 +2,7 @@ import React,{useEffect, useState} from 'react';
 import GameGrid from '../components/GameGrid';
 import HandList from '../components/HandList';
 import Loading from '../components/Loading';
+import '../css/GameContainer.css'
 
 import {getData} from '../GameService'
 
@@ -77,10 +78,13 @@ function GameContainer() {
   // else{
     return (
       <div className= "game-container">
-        <GameGrid  gridState={gridState}/>
-        <button onClick={handleStartClick}>Start Game</button>
+          <GameGrid  gridState={gridState}/>
+          <button onClick={handleStartClick}>Start Game</button>
         <div className="hand-container">
           <HandList cards={playerHand}/>
+        </div>
+        <div className='menu-container'>
+          <h2>Menu Container</h2>
         </div>
       </div>
     )
