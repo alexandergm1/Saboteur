@@ -13,6 +13,8 @@ function GameContainer() {
   const [clickToggle, setClickToggle] = useState(false)
   const [cards, setCards] = useState(null)
   const [playerHand, setPlayerHand] = useState([])
+  const [deck, setDeck] = useState([])
+
   const [gridState, setGridState] = useState([
       [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
       [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}], 
@@ -30,11 +32,32 @@ function GameContainer() {
   
   useEffect(() => {
     if(Object.keys(data).length === 0) return 
-    console.log(`data: ${data}`)
     getCards();
+    buildDeck();
     dealHand()
   }, [data, clickToggle])
   
+
+
+  const buildDeck = () => {
+    const deck = []
+    const cardData = Object.values(data.cards.tile_cards)
+    console.log(cardData)
+    for (let step = 0; step < 5; step++){
+      for (let card of cardData)
+        deck.push(card)
+    }
+    // Shuffle deck
+    let currentIndex = deck.length,  randomIndex
+    while (currentIndex != 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+      [deck[currentIndex], deck[randomIndex]] = [
+        deck[randomIndex], deck[currentIndex]];
+    }
+    setDeck(deck)
+  }
+
   const getCards = () => {
     const cardData = data.cards.tile_cards
     console.log(`card data: ${cardData}`)
@@ -46,7 +69,7 @@ function GameContainer() {
     const row = Math.floor(Math.random()*6);
     const col = Math.floor(Math.random()*10);
     const tempArr = gridState
-    tempArr[row].splice(col, 1, cards['start-card'])
+    tempArr[row].splice(col, 1, cards[7])
     setGridState(tempArr)
     setClickToggle(!clickToggle);
   }
@@ -62,6 +85,17 @@ function GameContainer() {
   }
 
   const handleStartClick = () => {
+    const row = Math.floor(Math.random()*7);
+    const col = Math.floor(Math.random()*11);
+    const tempArr = gridState
+    tempArr[row].splice(col, 1, deck[0])
+    setGridState(tempArr)
+  setClickToggle(!clickToggle);
+  }
+
+
+  const handleStartClick = () => {
+    console.log('starting game')
     if(!cards) return
     placeCard()
   }
@@ -88,3 +122,4 @@ function GameContainer() {
 }
 
 export default GameContainer;
+
