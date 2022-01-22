@@ -1,10 +1,5 @@
 import React,{useEffect, useState} from 'react';
 import GameGrid from '../components/GameGrid';
-import Loading from '../components/Loading';
-
-import {getData} from '../GameService'
-
-function GameContainer() {
   
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true)
@@ -13,7 +8,7 @@ function GameContainer() {
       [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
       [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}], 
       [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}], 
-      [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}], 
+      [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
       [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}], 
       [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}], 
       [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]    
@@ -50,11 +45,6 @@ function GameContainer() {
   const setupNewGame = () => {
     getCards()
     setLoading(false);
-  }
-
-  const handleStartClick = () => {
-    console.log('starting game')
-    placeCard()
   }
 
   if((loading)){
