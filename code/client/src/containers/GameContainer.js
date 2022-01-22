@@ -1,12 +1,15 @@
 import React,{useEffect, useState} from 'react';
 import GameGrid from '../components/GameGrid';
 import GridItem from '../components/GridItem';
+import HandList from '../components/HandList';
 import {getData} from '../GameService'
 
 function GameContainer() {
 
 const [data, setData] = useState({})
 const [cards, setCards] = useState([])
+const [card, setCard] = useState([])
+
 const [gridState, setGridState] = useState([
     [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
     [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}], 
@@ -44,12 +47,13 @@ useEffect (() => {
   .then(placeCard())
 
 
-  return <div className= "game-container">
+  return (<div className= "game-container">
   <p>This is game container</p>
   <GameGrid  gridState={gridState}/>
- 
-
-  </div>;
+  <div className="hand-container">
+  <HandList  card={card}/>
+  </div>
+  </div>)
 }
 
 export default GameContainer;
