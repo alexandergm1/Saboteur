@@ -6,9 +6,10 @@ function GridItem({row, col, item}) {
   if(item.inverted === false){ dummyVal = "false"}
 
   return <div className = "grid-item">
-    <div id={row.toString() + "-" + col.toString()}>
     {row.toString() + "-" + col.toString()}<br></br>
     {dummyVal}
+    <div id={row.toString() + "-" + col.toString()}>
+    
     </div>
   </div>;
 }
