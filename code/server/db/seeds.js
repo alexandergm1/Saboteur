@@ -4,14 +4,14 @@ db.dropDatabase();
 db.game.insertOne({
     "cards": {
 
-        "tile_cards":{
+        "tile_cards":[{
 
-                "path-left-to-right": {
-                    "entries": {
-                        "top": false, 
-                        "right": true, 
-                        "bottom": false, 
-                        "left": true
+                "name:" : "path-left-to-right",
+                "entries": {
+                    "top": false, 
+                    "right": true, 
+                    "bottom": false, 
+                    "left": true
                     },
                     "connections": {
                         "left-right": true,
@@ -20,10 +20,10 @@ db.game.insertOne({
                         "left-bottom": false,
                     },
                     "inverted": false,
-                    "image url": "https://i.ibb.co/JsQNmwQ/left-right.png"
+                    "image_url": "https://i.ibb.co/JsQNmwQ/left-right.png"
                 },
         
-                "path-left-to-bottom-to-right": {
+                {   "name:" : "path-left-to-bottom-to-right",
                     "entries": {
                         "top": false,
                         "right": true,
@@ -37,10 +37,10 @@ db.game.insertOne({
                         "left-bottom": true,
                     },
                     "inverted": false,
-                    "image url": "https://i.ibb.co/93x3pmJ/left-to-bottom-to-right.png"
+                    "image_url": "https://i.ibb.co/93x3pmJ/left-to-bottom-to-right.png"
                 },
             
-                "path-top-to-left": {
+                {   "name:" : "path-top-to-left",
                     "entries": {
                         "top": true,
                         "right": false,
@@ -54,10 +54,10 @@ db.game.insertOne({
                         "left-bottom": false,
                     },
                     "inverted": false,
-                    "image url": "https://i.ibb.co/JQJDfQT/bottom-right.png"
+                    "image_url": "https://i.ibb.co/JQJDfQT/bottom-right.png"
                 },
 
-                "path-bottom-to-left": {
+                {   "name:" : "path-bottom-to-left",
                     "entries": {
                         "top": false,
                         "right": false,
@@ -71,10 +71,10 @@ db.game.insertOne({
                         "left-bottom": true,
                     },
                     "inverted": false,
-                    "image url": "https://i.ibb.co/b290VQf/top-to-right.png"
+                    "image_url": "https://i.ibb.co/b290VQf/top-to-right.png"
                 },
 
-                "path-bottom-to-top": {
+                {   "name:" : "path-bottom-to-top",
                     "entries": {
                         "top": true,
                         "right": false,
@@ -88,10 +88,10 @@ db.game.insertOne({
                         "left-bottom": false,
                     },
                     "inverted": false,
-                    "image url": "https://i.ibb.co/B4R57NG/bottom-to-top.png"
+                    "image_url": "https://i.ibb.co/B4R57NG/bottom-to-top.png"
                 },
 
-                "path-bottom-to-left-to-top": {
+                {   "name:" : "path-bottom-to-left-to-top",
                     "entries": {
                         "top": true,
                         "right": false,
@@ -105,10 +105,10 @@ db.game.insertOne({
                         "left-bottom": true,
                     },
                     "inverted": false,
-                    "image url": "https://i.ibb.co/mG4wcTk/bottom-to-left-to-top.png"
+                    "image_url": "https://i.ibb.co/mG4wcTk/bottom-to-left-to-top.png"
                 },
 
-                "path-cross": {
+                {   "name:" : "path-cross",
                     "entries": {
                         "top": true,
                         "right": true,
@@ -122,10 +122,10 @@ db.game.insertOne({
                         "left-bottom": true,
                     },
                     "inverted": false,
-                    "image url": "https://i.ibb.co/QcsqgnV/cross.png"
+                    "image_url": "https://i.ibb.co/QcsqgnV/cross.png"
                 },
 
-                "start-card": {
+                { "name:" : "start-card",
                     "entries": {
                         "top": true,
                         "right": true,
@@ -139,10 +139,11 @@ db.game.insertOne({
                         "left-bottom": true,
                     },
                     "inverted": false,
-                    "image url": null
+                    "image_url": "https://i.ibb.co/QcsqgnV/cross.png"
+
                 }
         
-        },
+        ],
 
         "special_cards": {},
 

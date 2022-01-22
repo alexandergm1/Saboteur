@@ -1,0 +1,17 @@
+.game-container {
+    border: solid black 5px;
+    height: 100%;
+    width: 80%;
+    margin-left: 5px;
+    margin-top: 5px;;
+    position: fixed;
+    display: grid;
+}
+
+
+.menu-container {
+    height: 100%;
+    width: 20%;
+    position: fixed;
+    border: solid blue 5px;
+}
