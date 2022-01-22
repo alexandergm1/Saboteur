@@ -8,7 +8,7 @@ function GameContainer() {
   
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true)
-  const [gameActive, setGameActive] = useState(false)
+  const [clickToggle, setClickToggle] = useState(false)
   const [cards, setCards] = useState(null)
   const [gridState, setGridState] = useState([
       [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
@@ -27,9 +27,8 @@ function GameContainer() {
   
   useEffect(() => {
     if(Object.keys(data).length === 0) return 
-    console.log(`data: ${data}`)
     getCards();
-  }, [data, gameActive])
+  }, [data, clickToggle])
   
   const getCards = () => {
     const cardData = data.cards.tile_cards
@@ -37,29 +36,18 @@ function GameContainer() {
     setCards(cardData)
   }
 
- useEffect(() => {
-    if(!cards) return
-    console.log(cards)
-    placeCard()
-    setGameActive(false)
- }, [gameActive])
-
   const placeCard = () => {
-    const row = Math.floor(Math.random()*6);
-    const col = Math.floor(Math.random()*10);
+    const row = Math.floor(Math.random()*7);
+    const col = Math.floor(Math.random()*11);
     const tempArr = gridState
     tempArr[row].splice(col, 1, cards['start-card'])
     setGridState(tempArr)
+    setClickToggle(!clickToggle);
   }
 
-  // const setupNewGame = () => {
-  //   // getCards()
-  //   setLoading(false);
-  // }
-
   const handleStartClick = () => {
-    console.log('starting game')
-    setGameActive(true);
+    if(!cards) return
+    placeCard()
   }
 
   // if((loading)){
