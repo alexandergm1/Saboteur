@@ -3,6 +3,7 @@ import GameGrid from '../components/GameGrid';
 import HandList from '../components/HandList';
 import Loading from '../components/Loading';
 import '../css/GameContainer.css'
+import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
 
 import {getData} from '../GameService'
 
@@ -93,6 +94,26 @@ function GameContainer() {
     setPlayerHand(hand)
   }
 
+
+  function handleOnDragEnd(result){
+    if (!result.destination) return
+    else if (result.destination.droppableId === "discard"){
+      const items = Array.from(playerHand)
+      items.splice(result.source.index, 1)
+      reorderHand(items) 
+      return
+    }
+    else if (result.destination.droppableId === "cards"){
+    const items = Array.from(playerHand)
+    const [reorderedItem] = items.splice(result.source.index, 1)
+    items.splice(result.destination.index, 0, reorderedItem)
+    reorderHand(items)
+    }
+  }
+
+
+
+
   // if((loading)){
   //   return <div className= "game-container">
   //     <Loading setupNewGame={setupNewGame}/>
@@ -102,11 +123,19 @@ function GameContainer() {
     return (
       <div className= "game-container">
         <div className='main-container'>
-          <GameGrid  gridState={gridState}/>
-          <button onClick={handleStartClick}>Start Game</button>
-        <div className="hand-container">
-          <HandList cards={playerHand} reorderHand = {reorderHand}/>
-        </div>
+
+          <DragDropContext onDragEnd= {handleOnDragEnd}>
+
+            <GameGrid  gridState={gridState}/>
+            <button onClick={handleStartClick}>Start Game</button>
+            <div className="hand-container">
+            <HandList cards={playerHand} reorderHand = {reorderHand}/>
+             </div>
+
+
+          </DragDropContext>
+
+
         </div>
         <div className='menu-container'>
           <div id='deck'>deck<br></br>cards remaining:{deck.length} </div>

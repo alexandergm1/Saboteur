@@ -8,27 +8,9 @@ function HandList({cards, reorderHand}) {
     
         return (<Card key = {index} card={card} index ={index}/>)
     })
-       
-  function handleOnDragEnd(result){
-    if (!result.destination) return
-    else if (result.destination.droppableId === "discard"){
-      const items = Array.from(cards)
-      items.splice(result.source.index, 1)
-      reorderHand(items) 
-      return
-    }
-    else if (result.destination.droppableId === "cards"){
-    const items = Array.from(cards)
-    const [reorderedItem] = items.splice(result.source.index, 1)
-    items.splice(result.destination.index, 0, reorderedItem)
-    reorderHand(items)
-    }
-  }
-  
   
   return (
     <div className = "hand-container">
-  <DragDropContext onDragEnd= {handleOnDragEnd}>
     <Droppable droppableId="cards" direction="horizontal">
       {(provided) => (
         <div className = "hand-list" id="hand-list" {...provided.droppableProps} ref={provided.innerRef}>
@@ -46,8 +28,6 @@ function HandList({cards, reorderHand}) {
       </div>
     )}
     </Droppable>
-
-  </DragDropContext>
   </div>
   )
 }
