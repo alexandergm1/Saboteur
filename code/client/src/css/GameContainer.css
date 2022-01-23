@@ -24,3 +24,15 @@
     width: 20%;
     border: solid blue 5px;
 }
+
+#deck {
+    color: red;
+    width : 75px;
+    border : 2px solid black;
+    border-radius: 7px;
+    height : 100px;
+    position: relative;
+    top: 200px;
+    left: 100px;
+    overflow-wrap: break-word;
+}
