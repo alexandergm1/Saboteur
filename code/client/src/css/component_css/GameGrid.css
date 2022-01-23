@@ -1,10 +1,7 @@
 .game-grid{
+    width: fit-content;
     grid-area: game-grid;
-    color :red;
     display:grid;
     grid-template-columns : 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;    
 }
 
-.grid-item{
-    border : 2px solid black;
-}

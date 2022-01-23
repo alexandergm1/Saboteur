@@ -142,24 +142,21 @@ function GameContainer() {
   // else{
     return (
       <div className= "game-container">
-        <div className='main-container'>
 
           <DragDropContext onDragEnd= {handleOnDragEnd}>
 
-            <GameGrid  gridState={gridState}/>
-            <button onClick={handleStartClick}>Start Game</button>     
+            <GameGrid  gridState={gridState}/>   
             <div className="hand-container">
-            <HandList cards={playerHand} reorderHand = {reorderHand}/>
+              <HandList cards={playerHand} reorderHand = {reorderHand}/>
+              <button onClick={handleStartClick}>Start Game</button> 
              </div>
-
 
           </DragDropContext>
 
-
-        </div>
         <div className='menu-container'>
           <div id='deck'>deck<br></br>cards remaining:{deck.length} </div>
         </div>
+        
       </div>
     )
   // }

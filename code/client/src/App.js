@@ -7,7 +7,7 @@ import './css/component_css/HandList.css'
 import "./css/Sizing.css"
 import './css/HandContainer.css'
 import './css/MenuContainer.css'
-import './css/SideMenu.css'
+import './css/SideBar.css'
 import GameContainer from './containers/GameContainer';
 
 function App() {

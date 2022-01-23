@@ -1,28 +1,15 @@
 .game-container {
     border: solid #000000 5px;
-    height: 100%;
-    width: 100%;
-    margin-left: 5px;
-    margin-top: 5px;
-    /* display: grid;
+    width: fit-content;
+    margin: auto;
+    padding: 20px;
+    display: grid;
     grid-template-areas: 
-    'main menu';
-    grid-template-columns: 8fr 2fr; */
-    display: flex;
-    flex-direction: row;
-    position: fixed;
-}
-
-.main-container {
-    width: 80%;
-    height: 100%;
-}
-
-
-.menu-container {
-    height: 100%;
-    width: 20%;
-    border: solid blue 5px;
+        " . game-grid . side-bar"
+        " . . . side-bar"
+        ". bottom-bar bottom-bar side-bar";
+    grid-template-columns: 1fr 11fr 1fr 5fr;
+    grid-template-rows: 14fr 1fr 5fr;
 }
 
 #deck {

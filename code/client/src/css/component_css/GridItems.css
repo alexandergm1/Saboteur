@@ -1,5 +1,20 @@
 .grid-item {
     position: relative;
+    width: 60px;
+    height: 90px;
+
+}
+
+.grid-item img {
+    height: 60px;
+}
+
+.grid-item > div {
+    width: inherit;
+    height: inherit;
+    margin: 0px;
+    border: 0px black;
+    border-style: dashed;
 }
 
 #0-0 {
