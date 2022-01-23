@@ -14,6 +14,7 @@ function GameContainer() {
   const [clickToggle, setClickToggle] = useState(false)
   const [gameState, setGameState] = useState(false)
   const [playerHand, setPlayerHand] = useState([])
+  const [role, setRole]= useState([])
   const [deck, setDeck] = useState([])
 
   const [gridState, setGridState] = useState([
@@ -33,6 +34,10 @@ function GameContainer() {
   
   useEffect(() => {
     if(Object.keys(data).length === 0) return 
+    getCards();
+    buildDeck();
+    dealHand();
+    playRole();
   }, [data, clickToggle])
   
   useEffect(() => {
@@ -111,7 +116,11 @@ function GameContainer() {
     }
   }
 
-
+  const playRole =() => {
+    const cardData = Object.values(data.cards.tile_cards)[0]
+    console.log(data)
+    setRole(cardData)
+  }
 
 
   // if((loading)){
@@ -121,6 +130,7 @@ function GameContainer() {
   // }
   // else{
     return (
+
       <div className= "game-container">
         <div className='main-container'>
 
@@ -136,6 +146,12 @@ function GameContainer() {
           </DragDropContext>
 
 
+          <GameGrid  gridState={gridState}/>
+          <button onClick={handleStartClick}>Start Game</button>  
+        <div className="hand-container">
+          
+          <HandList cards={playerHand}  role={role}/>
+        </div>
         </div>
         <div className='menu-container'>
           <div id='deck'>deck<br></br>cards remaining:{deck.length} </div>

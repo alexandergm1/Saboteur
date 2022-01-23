@@ -2,7 +2,9 @@ import React from 'react';
 import Card from './Card';
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
 
-function HandList({cards, reorderHand}) {
+
+function HandList({cards, reorderHand, role}) {
+
 
    const cardNodes =  cards.map((card, index) => {
     
@@ -20,7 +22,7 @@ function HandList({cards, reorderHand}) {
       )}
     </Droppable>
 
-  
+
     <Droppable droppableId="discard">
     {(provided) => (
       <div className = "testing-drop-grid" id="test-drop" {...provided.droppableProps} ref={provided.innerRef} index = "7">
@@ -29,7 +31,10 @@ function HandList({cards, reorderHand}) {
     )}
     </Droppable>
   </div>
-  )
+  <p>Role Container</p>
+  <div className= "role"  style={{backgroundImage: `url(${role.image_url})`, backgroundSize: 'cover' }}>
+  </div>
+  )   
 }
 
 export default HandList;

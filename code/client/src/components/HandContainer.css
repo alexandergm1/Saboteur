@@ -8,10 +8,9 @@
 #hand-list{
     padding: 10px;
     border: 2px solid black;
-    width: 600px;
+    width: 900px;
     height: 150px;
     display : flex;
-}
 
 .testing-drop-grid{
     width :70px;
@@ -25,4 +24,13 @@
 
 .hand-container{
     display: flex;
+}
+    gap : 5px;
+}
+.role{
+    float :right;
+    width :75px;
+    border : 2px solid black;
+    height : 120px;
+   background-size : cover;
 }
