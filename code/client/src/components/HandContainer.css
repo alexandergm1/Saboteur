@@ -1,14 +1,16 @@
 .card{
     width :75px;
     border : 2px solid black;
-    height : 120px;
+    border-radius: 7px;
+    height : 115px;
     background-size : cover;
 }
 #hand-list{
+    padding: 10px;
     border: 2px solid black;
     width: 600px;
     height: 150px;
     color : red;
     display : flex;
-    gap : 25px;
+    gap : 8px;
 }
