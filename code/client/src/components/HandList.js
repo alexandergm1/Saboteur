@@ -30,7 +30,7 @@ function HandList({cards, reorderHand, role}) {
       </div>
     )}
     </Droppable>
-  </div>
+    </div>
   <p>Role Container</p>
   <div className= "role"  style={{backgroundImage: `url(${role.image_url})`, backgroundSize: 'cover' }}>
   </div>
