@@ -127,7 +127,7 @@ function GameContainer() {
           <DragDropContext onDragEnd= {handleOnDragEnd}>
 
             <GameGrid  gridState={gridState}/>
-            <button onClick={handleStartClick}>Start Game</button>
+            <button onClick={handleStartClick}>Start Game</button>     
             <div className="hand-container">
             <HandList cards={playerHand} reorderHand = {reorderHand}/>
              </div>
