@@ -1,24 +1,21 @@
-// import React from 'react';
-// import Draggable from 'react-draggable';
-// import {DragDropContext} from 'react-beautiful-dnd'
+import React from 'react';
+import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
 
 
-// function Card({card}) {
+function Card({card, index}) {
 
-//   return (
-//   <Draggable key={card.id} draggableId={card.id} index={card.key}>
-//   <div>
-//     {(provided) => (
-//       <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} >
-//         <div className = "card" style={{backgroundImage: `url(${card.image_url})`, backgroundSize: 'cover'}}>
-//         </div>
-//       </div>
- 
-//   )}
-//   </div>
-//   </Draggable>
+  return (
+    <Draggable key={index} draggableId={`${index}`} index={index}>
+    {(provided) => (
+      <div>
+          <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+            <div className = "card" style={{backgroundImage: `url(${card.image_url})`, backgroundSize: 'cover'}}>
+            </div>
+          </div>
+      </div>
+      )}
+    </Draggable>
+  )
+}
 
-//   )
-// }
-
-// export default Card;
+export default Card;

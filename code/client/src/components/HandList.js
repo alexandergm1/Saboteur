@@ -4,14 +4,13 @@ import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
 
 function HandList({cards, reorderHand}) {
 
-  //  const cardNodes =  cards.map((card, index) => {
+   const cardNodes =  cards.map((card, index) => {
     
-  //       return (<Card  key = {index} card={card}/>)
-  //   })
+        return (<Card key = {index} card={card} index ={index}/>)
+    })
        
   function handleOnDragEnd(result){
     if (!result.destination) return
-    console.log(result.destination.droppableId)
     if (result.destination.droppableId === "discard"){
       const items = Array.from(cards)
       items.splice(result.source.index, 1)
@@ -30,23 +29,10 @@ function HandList({cards, reorderHand}) {
   <DragDropContext onDragEnd= {handleOnDragEnd}>
     <Droppable droppableId="cards" direction="horizontal">
       {(provided) => (
-      <div className = "hand-list" id="hand-list" {...provided.droppableProps} ref={provided.innerRef}>
-      {cards.map((card, index) => {
-      return (
-        <Draggable key={index} draggableId={`${index}`} index={index}>
-        {(provided) => (
-          <div>
-              <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
-                <div className = "card" style={{backgroundImage: `url(${card.image_url})`, backgroundSize: 'cover'}}>
-                </div>
-              </div>
-          </div>
-          )}
-        </Draggable>
-      )
-      })}
-      {provided.placeholder}
-      </div>
+        <div className = "hand-list" id="hand-list" {...provided.droppableProps} ref={provided.innerRef}>
+            {cardNodes}
+          {provided.placeholder}
+        </div>
       )}
     </Droppable>
 
@@ -58,8 +44,6 @@ function HandList({cards, reorderHand}) {
       </div>
     )}
     </Droppable>
-
-
 
   </DragDropContext>
   </div>
