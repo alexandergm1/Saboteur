@@ -112,12 +112,18 @@ function GameContainer() {
       return
     }
     else if (result.destination.droppableId.substring(0, 4) === "grid"){
+      const row = result.destination.droppableId.substring(5,6)
+      const col = result.destination.droppableId.substring(7)
+      const tempArr = gridState
+      tempArr[row].splice([col], 1, playerHand[result.source.index])
+      console.log(playerHand[result.source.index])
+      setGridState(tempArr)
+      //Discard from hand
       const items = Array.from(playerHand)
       items.splice(result.source.index, 1)
       reorderHand(items) 
       return
     }
-
   }
 
 
