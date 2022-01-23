@@ -1,0 +1,36 @@
+.card{
+    width :70px;
+    border : 2px solid black;
+    border-radius: 7px;
+    height : 100px;
+    background-size : cover;
+}
+#hand-list{
+    padding: 10px;
+    border: 2px solid black;
+    width: 900px;
+    height: 150px;
+    display : flex;
+
+.testing-drop-grid{
+    width :70px;
+    height : 100px;
+    border: 2px solid black;
+    color :red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hand-container{
+    display: flex;
+}
+    gap : 5px;
+}
+.role{
+    float :right;
+    width :75px;
+    border : 2px solid black;
+    height : 120px;
+   background-size : cover;
+}

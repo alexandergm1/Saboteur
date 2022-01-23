@@ -9,6 +9,10 @@ Initialise Game
         fetch 2x coal cards from API;
         put start card, gold card & 2x coal card onto game_grid API;
 
+    set deck()
+        fetch  tile_cards & special_cards API;
+        put tile_cards & special_cards into game_state.deck API;
+
     shuffle deck()
         fetch deck from API;
         shuffle deck;
