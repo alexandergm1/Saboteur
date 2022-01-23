@@ -62,7 +62,7 @@ function GameContainer() {
 
   const placeStartCards = () => {
     const tempArr = gridState
-    tempArr[3].splice(1, 1, data.cards.tile_cards[7])
+    tempArr[3].splice(2, 1, data.cards.tile_cards[7])
     tempArr[1].splice(9, 1, data.cards.tile_cards[7])
     tempArr[3].splice(9, 1, data.cards.tile_cards[7])
     tempArr[5].splice(9, 1, data.cards.tile_cards[7])

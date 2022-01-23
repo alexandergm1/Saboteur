@@ -22,8 +22,7 @@
 .menu-container {
     height: 100%;
     width: 20%;
-    border: solid red 5px;
-    background-color: dodgerblue;
+    border: solid blue 5px;
 }
 
 #deck {
