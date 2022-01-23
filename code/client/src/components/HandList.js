@@ -6,7 +6,7 @@ function HandList({cards}) {
 
    const cardNodes =  cards.map((card, index) => {
     
-        return (<Card key = {index} card={card} index ={index}/>)
+        return (<Card key={index} card={card} index={index}/>)
     })
   
   return (
@@ -15,7 +15,7 @@ function HandList({cards}) {
       {(provided) => (
         <div className = "hand-list" id="hand-list" {...provided.droppableProps} ref={provided.innerRef}>
             {cardNodes}
-          {provided.placeholder}
+            {provided.placeholder}
         </div>
       )}
     </Droppable>

@@ -1,8 +1,7 @@
 import React,{useEffect, useState} from 'react';
-import GameGrid from '../components/GameGrid';
+import GameGrid from '../components/GameGrid'
 import HandList from '../components/HandList';
 import Loading from '../components/Loading';
-import '../css/GameContainer.css'
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
 
 import {getData} from '../GameService'
@@ -96,7 +95,6 @@ function GameContainer() {
 
 
   function handleOnDragEnd(result){
-    console.log(result.destination)
     if (!result.destination) return
     else if (result.destination.droppableId === "discard"){
       const items = Array.from(playerHand)
@@ -105,24 +103,10 @@ function GameContainer() {
       return
     }
     else if (result.destination.droppableId === "cards"){
-      const items = Array.from(playerHand)
-      const [reorderedItem] = items.splice(result.source.index, 1)
-      items.splice(result.destination.index, 0, reorderedItem)
-      reorderHand(items)
-      return
-    }
-    else if (result.destination.droppableId.substring(0, 4) === "grid"){
-      const row = result.destination.droppableId.substring(5,6)
-      const col = result.destination.droppableId.substring(7)
-      const tempArr = gridState
-      tempArr[row].splice([col], 1, playerHand[result.source.index])
-      console.log(playerHand[result.source.index])
-      setGridState(tempArr)
-      //Discard from hand
-      const items = Array.from(playerHand)
-      items.splice(result.source.index, 1)
-      reorderHand(items) 
-      return
+    const items = Array.from(playerHand)
+    const [reorderedItem] = items.splice(result.source.index, 1)
+    items.splice(result.destination.index, 0, reorderedItem)
+    reorderHand(items)
     }
   }
 
@@ -142,9 +126,7 @@ function GameContainer() {
           <DragDropContext onDragEnd= {handleOnDragEnd}>
 
             <GameGrid  gridState={gridState}/>
-
-            <button onClick={handleStartClick}>Start Game</button>
-
+            <button onClick={handleStartClick}>Start Game</button>     
             <div className="hand-container">
             <HandList cards={playerHand} reorderHand = {reorderHand}/>
              </div>
