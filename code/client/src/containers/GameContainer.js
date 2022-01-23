@@ -109,7 +109,15 @@ function GameContainer() {
       const [reorderedItem] = items.splice(result.source.index, 1)
       items.splice(result.destination.index, 0, reorderedItem)
       reorderHand(items)
+      return
     }
+    else if (result.destination.droppableId.substring(0, 4) === "grid"){
+      const items = Array.from(playerHand)
+      items.splice(result.source.index, 1)
+      reorderHand(items) 
+      return
+    }
+
   }
 
 
