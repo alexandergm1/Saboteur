@@ -10,7 +10,6 @@
     border: 2px solid black;
     width: 600px;
     height: 150px;
-    color : red;
     display : flex;
-    gap : 8px;
+
 }
