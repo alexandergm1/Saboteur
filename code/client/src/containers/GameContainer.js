@@ -96,6 +96,7 @@ function GameContainer() {
 
 
   function handleOnDragEnd(result){
+    console.log(result.destination)
     if (!result.destination) return
     else if (result.destination.droppableId === "discard"){
       const items = Array.from(playerHand)
@@ -104,10 +105,10 @@ function GameContainer() {
       return
     }
     else if (result.destination.droppableId === "cards"){
-    const items = Array.from(playerHand)
-    const [reorderedItem] = items.splice(result.source.index, 1)
-    items.splice(result.destination.index, 0, reorderedItem)
-    reorderHand(items)
+      const items = Array.from(playerHand)
+      const [reorderedItem] = items.splice(result.source.index, 1)
+      items.splice(result.destination.index, 0, reorderedItem)
+      reorderHand(items)
     }
   }
 
@@ -127,7 +128,9 @@ function GameContainer() {
           <DragDropContext onDragEnd= {handleOnDragEnd}>
 
             <GameGrid  gridState={gridState}/>
-            <button onClick={handleStartClick}>Start Game</button>     
+
+            <button onClick={handleStartClick}>Start Game</button>
+
             <div className="hand-container">
             <HandList cards={playerHand} reorderHand = {reorderHand}/>
              </div>
