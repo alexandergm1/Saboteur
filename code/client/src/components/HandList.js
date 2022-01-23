@@ -11,16 +11,18 @@ function HandList({cards, reorderHand}) {
        
   function handleOnDragEnd(result){
     if (!result.destination) return
-    if (result.destination.droppableId === "discard"){
+    else if (result.destination.droppableId === "discard"){
       const items = Array.from(cards)
       items.splice(result.source.index, 1)
       reorderHand(items) 
       return
     }
+    else if (result.destination.droppableId === "cards"){
     const items = Array.from(cards)
     const [reorderedItem] = items.splice(result.source.index, 1)
     items.splice(result.destination.index, 0, reorderedItem)
     reorderHand(items)
+    }
   }
   
   
