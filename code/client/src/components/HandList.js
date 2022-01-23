@@ -12,6 +12,7 @@ function HandList({cards, reorderHand, role}) {
     })
   
   return (
+   
     <div className = "hand-container">
     <Droppable droppableId="cards" direction="horizontal">
       {(provided) => (
@@ -34,6 +35,7 @@ function HandList({cards, reorderHand, role}) {
   <p>Role Container</p>
   <div className= "role"  style={{backgroundImage: `url(${role.image_url})`, backgroundSize: 'cover' }}>
   </div>
+
   )   
 }
 
