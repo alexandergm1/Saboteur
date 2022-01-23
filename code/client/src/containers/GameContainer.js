@@ -93,8 +93,14 @@ function GameContainer() {
     setPlayerHand(hand)
   }
 
+  const legalMove = (cardSelected, gridRow, gridCol) => {
+    if (Object.keys(gridState[gridRow][gridCol]).length !== 0) return console.log("Card already placed here!")
+    else return true
+  } 
+
 
   function handleOnDragEnd(result){
+    console.log(result.destination)
     if (!result.destination) return
     else if (result.destination.droppableId === "discard"){
       const items = Array.from(playerHand)
@@ -107,6 +113,21 @@ function GameContainer() {
     const [reorderedItem] = items.splice(result.source.index, 1)
     items.splice(result.destination.index, 0, reorderedItem)
     reorderHand(items)
+    }
+    else if (result.destination.droppableId.substring(0, 4) === "grid"){
+      const cardBeingPickedUp = playerHand[result.source.index]
+      const row = result.destination.droppableId.substring(5,6)
+      const col = result.destination.droppableId.substring(7)
+      if (legalMove(cardBeingPickedUp, row, col) === true){
+        const tempArr = gridState
+        tempArr[row].splice([col], 1, playerHand[result.source.index])
+        setGridState(tempArr)
+        //Discard from hand
+        const items = Array.from(playerHand)
+        items.splice(result.source.index, 1)
+        reorderHand(items)
+      } 
+        return
     }
   }
 
