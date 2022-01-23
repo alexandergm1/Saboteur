@@ -6,9 +6,17 @@
 }
 #hand-list{
     border: 2px solid black;
-    width: 600px;
+    width: 900px;
     height: 150px;
     color : red;
     display : flex;
     gap : 5px;
+}
+
+.role{
+    float :right;
+    width :75px;
+    border : 2px solid black;
+    height : 120px;
+   background-size : cover;
 }
