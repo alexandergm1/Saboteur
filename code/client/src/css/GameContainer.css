@@ -26,10 +26,10 @@
 }
 
 #deck {
-    width : 75px;
+    width : 70px;
     border : 2px solid black;
     border-radius: 7px;
-    height : 120px;
+    height : 100px;
     position: relative;
     top: 200px;
     left: 100px;
