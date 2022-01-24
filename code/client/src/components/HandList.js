@@ -2,11 +2,11 @@ import React from 'react';
 import Card from './Card';
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
 
-function HandList({cards}) {
+function HandList({cards, handleOnClickInvert}) {
 
    const cardNodes =  cards.map((card, index) => {
     
-        return (<Card key={index} card={card} index={index}/>)
+        return (<Card key={index} card={card} index={index} handleOnClickInvert = {handleOnClickInvert}/>)
     })
   
   return (

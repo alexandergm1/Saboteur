@@ -48,7 +48,7 @@ function GameContainer() {
     const cardData = Object.values(data.cards.tile_cards)
     for (let step = 0; step < 5; step++){
       for (let card of cardData)
-        deck.push(card)
+        deck.push(Object.assign({}, card))
     }
     // Shuffle deck
     let currentIndex = deck.length,  randomIndex
@@ -126,13 +126,22 @@ function GameContainer() {
     }
   }
 
+  const handleOnClickInvert = (indexInHand) => {
+    const tempArr = playerHand
+    let card = tempArr[indexInHand]
+    card.inverted = !card.inverted
+    tempArr.splice(indexInHand, 1, card)
+    setPlayerHand(tempArr)
+    setClickToggle(!clickToggle);
+  }
+
     return (
       <div className= "game-container">
 
         <DragDropContext onDragEnd= {handleOnDragEnd}>
 
           <GameGrid  gridState={gridState}/>   
-          <HandList cards={playerHand} reorderHand = {reorderHand}/> 
+          <HandList cards={playerHand} reorderHand = {reorderHand} handleOnClickInvert = {handleOnClickInvert}/> 
           <SideBar deck={deck} startClick={handleStartClick}/>
 
         </DragDropContext>

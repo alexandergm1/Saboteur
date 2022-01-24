@@ -6,7 +6,7 @@ function GridItem({row, col, item}) {
   return (
   <Droppable droppableId={"grid" + "-" + `${row}` + "-" + `${col}`}>
     {(provided) => (
-      <div className = "card" style={{backgroundImage: `url(${item.image_url})`, backgroundSize: 'cover'}} {...provided.droppableProps} ref={provided.innerRef} index = {`${col + row}`}>
+      <div className = "card" style={{backgroundImage: `url(${item.image_url})`, backgroundSize: 'cover', transform: item.inverted ? 'rotate(180deg)': null}} {...provided.droppableProps} ref={provided.innerRef} index = {`${col + row}`}>
         <div></div>
         {provided.placeholder}
         {/* <div id={row.toString() + "-" + col.toString()}>
