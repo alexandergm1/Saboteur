@@ -34,15 +34,14 @@ function HandList({cards, handleOnClickInvert}) {
     </div>
     
   </div>
-<<<<<<< HEAD
-  )
-=======
-  <p>Role Container</p>
-  <div className= "role"  style={{backgroundImage: `url(${role.image_url})`, backgroundSize: 'cover' }}>
-  </div>
 
-  )   
->>>>>>> 203c8d890671d0b58285c4810a3f1159fb56d39c
+  )
+//   <p>Role Container</p>
+//   <div className= "role"  style={{backgroundImage: `url(${role.image_url})`, backgroundSize: 'cover' }}>
+//   </div>
+
+//   )   
+// >>>>>>> 203c8d890671d0b58285c4810a3f1159fb56d39c
 }
 
 export default HandList;
