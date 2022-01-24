@@ -60,22 +60,32 @@ function GameContainer() {
         deck.push(Object.assign({}, card))
     }
     // Shuffle deck
-    let currentIndex = deck.length,  randomIndex
-    while (currentIndex != 0) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-      [deck[currentIndex], deck[randomIndex]] = [
-        deck[randomIndex], deck[currentIndex]];
-    }
+    shuffleArray(deck);
     setDeck(deck)
   }
 
+  const shuffleArray = (array) => {
+    let currentIndex = array.length,  randomIndex
+    while (currentIndex != 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+    return array
+  }
+  
   const placeStartCards = () => {
     const tempArr = gridState
-    tempArr[3].splice(2, 1, data.cards.tile_cards[7])
-    tempArr[1].splice(9, 1, data.cards.tile_cards[7])
-    tempArr[3].splice(9, 1, data.cards.tile_cards[7])
-    tempArr[5].splice(9, 1, data.cards.tile_cards[7])
+    let startCardsArray = []
+    startCardsArray.push(Object.assign({}, data.cards.gold_card))
+    startCardsArray.push(Object.assign({}, data.cards.coal_card))
+    startCardsArray.push(Object.assign({}, data.cards.coal_card))
+    shuffleArray(startCardsArray)
+    tempArr[3].splice(1, 1, data.cards.tile_cards[7])
+    tempArr[1].splice(9, 1, startCardsArray[0])
+    tempArr[3].splice(9, 1, startCardsArray[1])
+    tempArr[5].splice(9, 1, startCardsArray[2])
     setGridState(tempArr)
   }
 
