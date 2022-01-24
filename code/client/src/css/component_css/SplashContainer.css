@@ -1,0 +1,56 @@
+body, html{
+    height: 100%;
+    margin: 0;
+}
+.splash-container{
+    background-image: url('/saboteur_splash.jpeg');
+    background-color: rgb(3, 3, 48);
+      /* Full height */
+    height: 100vh;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.splash-menu{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 40%;
+    margin: auto;
+}
+
+.button-wrapper{
+    display: grid;
+    width: 100%;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    margin-top: 50px;
+}
+
+.single, .host, .join, .rules{
+    background-color: transparent;
+    color: white;
+    width: 100;
+    height: 60px;
+    margin: 10px;
+    border: yellow 2px solid;
+    border-radius: 20px;
+    font-size: 20px;
+    transition: 0.3s;
+}
+
+button.single:hover{
+    background-color: rgba(255, 255, 0, 0.185);
+}
+button.host:hover{
+    background-color: rgba(255, 0, 0, 0.185);
+}
+button.join:hover{
+    background-color: rgba(0, 255, 64, 0.185);
+}
+button.rules:hover{
+    background-color: rgba(255, 0, 200, 0.185);
+}

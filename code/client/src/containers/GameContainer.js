@@ -2,7 +2,7 @@ import React,{useEffect, useState} from 'react';
 import GameGrid from '../components/GameGrid'
 import HandList from '../components/HandList';
 import SideBar from '../components/SideBar';
-import Loading from '../components/Loading';
+import Splash from './SplashContainer';
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
 import { io } from 'socket.io-client'
 
@@ -55,7 +55,8 @@ function GameContainer() {
   const buildDeck = () => {
     const deck = []
     const cardData = Object.values(data.cards.tile_cards)
-    for (let step = 0; step < 5; step++){
+    // Might need to custimise this to reflect true numbers of individual cards!
+    for (let step = 0; step < 5; step++){ 
       for (let card of cardData)
         deck.push(Object.assign({}, card))
     }
@@ -144,19 +145,20 @@ function GameContainer() {
     setClickToggle(!clickToggle);
   }
 
-    return (
-      <div className= "game-container">
+  
+  return (
+    <div className= "game-container">
 
-        <DragDropContext onDragEnd= {handleOnDragEnd}>
+      <DragDropContext onDragEnd= {handleOnDragEnd}>
 
-          <GameGrid  gridState={gridState}/>   
-          <HandList cards={playerHand} reorderHand = {reorderHand} handleOnClickInvert = {handleOnClickInvert}/> 
-          <SideBar deck={deck} startClick={handleStartClick}/>
+        <GameGrid  gridState={gridState}/>   
+        <HandList cards={playerHand} reorderHand = {reorderHand} handleOnClickInvert = {handleOnClickInvert}/> 
+        <SideBar deck={deck} startClick={handleStartClick}/>
 
-        </DragDropContext>
-        
-      </div>
-    )
+      </DragDropContext>
+      
+    </div>
+  )
 }
 
 export default GameContainer;
