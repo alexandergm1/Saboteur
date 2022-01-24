@@ -54,7 +54,7 @@ db.game.insertOne({
                         "left-bottom": false,
                     },
                     "inverted": false,
-                    "image_url": "https://ibb.co/y6CjtbC"
+                    "image_url": "https://i.ibb.co/N9qB5Hq/top-left.png"
                 },
 
                 {   "name:" : "path-bottom-to-left",
@@ -150,79 +150,79 @@ db.game.insertOne({
         "player_cards" :{
             "minner":{
                 "cobalt" : {
-                    "image_url": "https://ibb.co/vQcr4wr"
+                    "image_url": "https://i.ibb.co/CMwXK1X/blue-dwarf.png"
                 },
                 "brown" : {
-                    "image_url": "https://ibb.co/VMtw99W"
+                    "image_url": "https://i.ibb.co/5s6K44W/brown-dwarf.png"
                 },
                 "green" : {
-                    "image_url": "https://ibb.co/g3MGjfq"
+                    "image_url": "https://i.ibb.co/2y7wnCV/green-dwarf.png"
                 },
                 "purple" : {
-                    "image_url": "https://ibb.co/56tRQ4R"
+                    "image_url": "https://i.ibb.co/s2kVTRV/purple-dwarf.png"
                 },
                 "blue" : {
-                    "image_url": "https://ibb.co/DCN6Kw7"
+                    "image_url": "https://i.ibb.co/7WHTyrG/cobalt-dwarf.png"
                 },
                 "dark_green" : {
-                    "image_url": "https://ibb.co/8DgyYT7"
+                    "image_url": "https://i.ibb.co/Y7B50YL/green-dwarf.png"
                 },
                 "red" : {
-                    "image_url": "https://ibb.co/BP5pPkF"
+                    "image_url": "https://i.ibb.co/PYvLYk0/red-dwarf.png"
                 }
             },
             "saboteur" : {
                 "blue" :{
-                "image_url": "https://ibb.co/xS8MwhV"
+                "image_url": "https://i.ibb.co/7JNGBv7/saboteur-blue.png"
                 },
                 "lime" : {
-                    "image_url": "https://ibb.co/KqNxvYP"
+                    "image_url": "https://i.ibb.co/J7xjJN1/saboteur-lime.png"
                 },
                 "orange" : {
-                    "image_url": "https://ibb.co/CwD5v2Q"
+                    "image_url": "https://i.ibb.co/10jfK6T/saboteur-orange.png"
                 },
                 "yellow" : {
-                    "image_url": "https://ibb.co/VN0mXvp"
+                    "image_url": "https://i.ibb.co/H2Ldmrp/saboteur-yellow.png"
                 }
             },
         },
         
         "card_backs":{
             deck_back : {
-            "image_url": "https://ibb.co/234pn5S"
+            "image_url": "https://i.ibb.co/qYQ2yxC/deck-back.png"
             },
             nugget_back : {
-                "image_url": "https://ibb.co/64DYwS2"
+                "image_url": "https://i.ibb.co/wKpygqT/gold-back.png"
             },
             character_back : {
-                "image_url": "https://ibb.co/kJfYN1n"
+                "image_url": "https://i.ibb.co/3vqtgzX/char-back.png"
             },
             gold_back : {
-                "image_url" : "https://ibb.co/tpQ26BK"
+                "image_url" : "https://i.ibb.co/LdYgySR/gold-backs-chars.png"
             }
         },
         
 
         "gold_card": {
-            "front_url": "https://ibb.co/xJbk1T3",
-            "back_url" : "https://ibb.co/tpQ26BK"
+            "front_url": "https://i.ibb.co/Fg1r5Tn/gold-card.png",
+            "back_url" : "https://i.ibb.co/LdYgySR/gold-backs-chars.png"
         },
 
         "coal_card": {
-            "front_url": "https://ibb.co/wzzxr87",
-            "back_url" : "https://ibb.co/tpQ26BK"
+            "front_url": "https://i.ibb.co/gRRBFQd/coal-card.png",
+            "back_url" : "https://i.ibb.co/LdYgySR/gold-backs-chars.png"
         },
         "nugget_one" : {
-            "front_url": "https://ibb.co/8jm1gBr",
-            "back_url": "https://ibb.co/64DYwS2"
+            "front_url": "https://i.ibb.co/cNy4hv6/nugget-one.png",
+            "back_url": "https://i.ibb.co/wKpygqT/gold-back.png"
         },
         "nugget_two" : {
-            "front_url": "https://ibb.co/Qbdybtg",
-            "back_url": "https://ibb.co/64DYwS2"
+            "front_url": "https://i.ibb.co/j6Rn6sN/nugget-two.png",
+            "back_url": "https://i.ibb.co/wKpygqT/gold-back.png"
         },
         "nugget_three" : {
-            "front_url": "https://ibb.co/8P7pdBH",
-            "back_url": "https://ibb.co/64DYwS2"
+            "front_url": "https://i.ibb.co/ssVG6PZ/nugget-three.png",
+            "back_url": "https://i.ibb.co/wKpygqT/gold-back.png"
         },
     },
 
