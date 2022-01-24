@@ -1,0 +1,11 @@
+.card{
+    width :60px;
+    height : 80px;
+    border : 1px solid black;
+    border-radius: 7px;
+    
+    background-size : cover;
+}
+#card-wrapper{
+    margin: 5px;
+}

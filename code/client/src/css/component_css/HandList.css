@@ -1,0 +1,24 @@
+#hand-list{
+    display : flex;
+}
+
+.hand-container{
+    grid-area: bottom-bar;
+    display: grid;
+    grid-template-columns: 6fr 1fr 3fr;
+    width: fit-content;
+    border: 1px solid black;
+    padding: 5px;
+}
+
+#discard{
+    height : inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 4px;
+}
+
+img.delete{
+    height: 85px;
+}

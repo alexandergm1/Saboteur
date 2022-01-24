@@ -1,25 +1,15 @@
 .game-container {
     border: solid #000000 5px;
     width: fit-content;
-    margin: auto;
-    padding: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    padding: 15px;
     display: grid;
     grid-template-areas: 
         " . game-grid . side-bar"
         " . . . side-bar"
-        ". bottom-bar bottom-bar side-bar";
+        ". bottom-bar . side-bar";
     grid-template-columns: 1fr 11fr 1fr 5fr;
-    grid-template-rows: 14fr 1fr 5fr;
-}
-
-#deck {
-    color: red;
-    width : 75px;
-    border : 2px solid black;
-    border-radius: 7px;
-    height : 100px;
-    position: relative;
-    top: 200px;
-    left: 100px;
-    overflow-wrap: break-word;
+    grid-template-rows: 14fr 1fr 3fr;
 }

@@ -1,7 +1,8 @@
 .game-grid{
     width: fit-content;
+    height: fit-content;
     grid-area: game-grid;
-    display:grid;
+    display: grid;
     grid-template-columns : 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;    
 }
 

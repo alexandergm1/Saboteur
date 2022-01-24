@@ -1,10 +1,12 @@
 import React,{useEffect, useState} from 'react';
 import GameGrid from '../components/GameGrid'
 import HandList from '../components/HandList';
+import SideBar from '../components/SideBar';
 import Loading from '../components/Loading';
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
 
-import {getData} from '../GameService'
+import {getData} from '../services/FetchService'
+import {handleOnDragEnd} from '../services/GameService'
 
 function GameContainer() {
   
@@ -59,7 +61,6 @@ function GameContainer() {
     setDeck(deck)
   }
 
-
   const placeStartCards = () => {
     const tempArr = gridState
     tempArr[3].splice(2, 1, data.cards.tile_cards[7])
@@ -68,11 +69,6 @@ function GameContainer() {
     tempArr[5].splice(9, 1, data.cards.tile_cards[7])
     setGridState(tempArr)
   }
-
-  // const setupNewGame = () => {
-  //   // getCards()
-  //   setLoading(false);
-  // }
 
   const dealHand = () => {
     let tempArr = deck
@@ -98,9 +94,7 @@ function GameContainer() {
     else return true
   } 
 
-
   function handleOnDragEnd(result){
-    console.log(result.destination)
     if (!result.destination) return
     else if (result.destination.droppableId === "discard"){
       const items = Array.from(playerHand)
@@ -109,10 +103,11 @@ function GameContainer() {
       return
     }
     else if (result.destination.droppableId === "cards"){
-    const items = Array.from(playerHand)
-    const [reorderedItem] = items.splice(result.source.index, 1)
-    items.splice(result.destination.index, 0, reorderedItem)
-    reorderHand(items)
+      const items = Array.from(playerHand)
+      const [reorderedItem] = items.splice(result.source.index, 1)
+      items.splice(result.destination.index, 0, reorderedItem)
+      reorderHand(items)
+      return
     }
     else if (result.destination.droppableId.substring(0, 4) === "grid"){
       const cardBeingPickedUp = playerHand[result.source.index]
@@ -131,35 +126,19 @@ function GameContainer() {
     }
   }
 
-
-
-
-  // if((loading)){
-  //   return <div className= "game-container">
-  //     <Loading setupNewGame={setupNewGame}/>
-  //   </div>;
-  // }
-  // else{
     return (
       <div className= "game-container">
 
-          <DragDropContext onDragEnd= {handleOnDragEnd}>
+        <DragDropContext onDragEnd= {handleOnDragEnd}>
 
-            <GameGrid  gridState={gridState}/>   
-            <div className="hand-container">
-              <HandList cards={playerHand} reorderHand = {reorderHand}/>
-              <button onClick={handleStartClick}>Start Game</button> 
-             </div>
+          <GameGrid  gridState={gridState}/>   
+          <HandList cards={playerHand} reorderHand = {reorderHand}/> 
+          <SideBar deck={deck} startClick={handleStartClick}/>
 
-          </DragDropContext>
-
-        <div className='menu-container'>
-          <div id='deck'>deck<br></br>cards remaining:{deck.length} </div>
-        </div>
+        </DragDropContext>
         
       </div>
     )
-  // }
 }
 
 export default GameContainer;

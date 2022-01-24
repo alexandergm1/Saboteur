@@ -11,24 +11,27 @@ function HandList({cards}) {
   
   return (
     <div className = "hand-container">
+    <div>
     <Droppable droppableId="cards" direction="horizontal">
       {(provided) => (
-        <div className = "hand-list" id="hand-list" {...provided.droppableProps} ref={provided.innerRef}>
+        <div id="hand-list" {...provided.droppableProps} ref={provided.innerRef}>
             {cardNodes}
             {provided.placeholder}
         </div>
       )}
     </Droppable>
-
-
+    </div>
+    <div>
     <Droppable droppableId="discard">
-    {(provided) => (
-      <div className = "testing-drop-grid" id="test-drop" {...provided.droppableProps} ref={provided.innerRef} index = "7">
-      {provided.placeholder} Discard
-      </div>
-    )}
+      {(provided) => (
+          <div id="discard" {...provided.droppableProps} ref={provided.innerRef} index = "7">
+            <img className='delete' src={require('../img/delete.png')}/>
+            {provided.placeholder} 
+          </div>
+      )}
     </Droppable>
-
+    </div>
+    
   </div>
   )
 }
