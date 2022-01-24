@@ -54,7 +54,7 @@ db.game.insertOne({
                         "left-bottom": false,
                     },
                     "inverted": false,
-                    "image_url": "https://i.ibb.co/JQJDfQT/bottom-right.png"
+                    "image_url": "https://ibb.co/y6CjtbC"
                 },
 
                 {   "name:" : "path-bottom-to-left",
@@ -148,26 +148,82 @@ db.game.insertOne({
         "special_cards": {},
 
         "player_cards" :{
-            "miner" : {
-                "image url": null
+            "minner":{
+                "cobalt" : {
+                    "image_url": "https://ibb.co/vQcr4wr"
+                },
+                "brown" : {
+                    "image_url": "https://ibb.co/VMtw99W"
+                },
+                "green" : {
+                    "image_url": "https://ibb.co/g3MGjfq"
+                },
+                "purple" : {
+                    "image_url": "https://ibb.co/56tRQ4R"
+                },
+                "blue" : {
+                    "image_url": "https://ibb.co/DCN6Kw7"
+                },
+                "dark_green" : {
+                    "image_url": "https://ibb.co/8DgyYT7"
+                },
+                "red" : {
+                    "image_url": "https://ibb.co/BP5pPkF"
+                }
             },
-
             "saboteur" : {
-                "image url": null
+                "blue" :{
+                "image_url": "https://ibb.co/xS8MwhV"
+                },
+                "lime" : {
+                    "image_url": "https://ibb.co/KqNxvYP"
+                },
+                "orange" : {
+                    "image_url": "https://ibb.co/CwD5v2Q"
+                },
+                "yellow" : {
+                    "image_url": "https://ibb.co/VN0mXvp"
+                }
+            },
+        },
+        
+        "card_backs":{
+            deck_back : {
+            "image_url": "https://ibb.co/234pn5S"
+            },
+            nugget_back : {
+                "image_url": "https://ibb.co/64DYwS2"
+            },
+            character_back : {
+                "image_url": "https://ibb.co/kJfYN1n"
+            },
+            gold_back : {
+                "image_url" : "https://ibb.co/tpQ26BK"
             }
         },
         
-        "card_back":{
-            "image url": null
-        },
 
         "gold_card": {
-            "image url": null
+            "front_url": "https://ibb.co/xJbk1T3",
+            "back_url" : "https://ibb.co/tpQ26BK"
         },
 
         "coal_card": {
-            "image url": null
-        }
+            "front_url": "https://ibb.co/wzzxr87",
+            "back_url" : "https://ibb.co/tpQ26BK"
+        },
+        "nugget_one" : {
+            "front_url": "https://ibb.co/8jm1gBr",
+            "back_url": "https://ibb.co/64DYwS2"
+        },
+        "nugget_two" : {
+            "front_url": "https://ibb.co/Qbdybtg",
+            "back_url": "https://ibb.co/64DYwS2"
+        },
+        "nugget_three" : {
+            "front_url": "https://ibb.co/8P7pdBH",
+            "back_url": "https://ibb.co/64DYwS2"
+        },
     },
 
    "game_state":{
