@@ -3,9 +3,11 @@ import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
 
 function GridItem({row, col, item}) {
   
+
+
   return (
 
-  <div className = "card" style={{backgroundImage: `url(${item.image_url})`, backgroundSize: 'cover', transform: item.inverted ? 'rotate(180deg)': null}}>
+  <div className = "card" style={{backgroundImage: item.flipped ? `url(${item.back_url})` : `url(${item.image_url})`, backgroundSize: 'cover', transform: item.inverted ? 'rotate(180deg)': null}}>
 
   <Droppable droppableId={"grid" + "-" + `${row}` + "-" + `${col}`}>
     {(provided, snapshot) => (
