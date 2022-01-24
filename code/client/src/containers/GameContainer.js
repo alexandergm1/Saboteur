@@ -4,6 +4,7 @@ import HandList from '../components/HandList';
 import SideBar from '../components/SideBar';
 import Loading from '../components/Loading';
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
+import { io } from 'socket.io-client'
 
 import {getData} from '../services/FetchService'
 import {handleOnDragEnd} from '../services/GameService'
@@ -26,6 +27,14 @@ function GameContainer() {
       [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}], 
       [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]    
   ])
+
+  useEffect(()=>{
+    const socket = io('http://localhost:5000')
+    socket.on('connect', ()=>console.log(socket.id))
+    socket.on('connect_error', ()=>{
+      setTimeout(()=>socket.connect(),5000)
+    })
+  },[])
 
   useEffect (() => {
     getData()
