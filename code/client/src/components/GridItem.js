@@ -4,21 +4,19 @@ import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
 function GridItem({row, col, item}) {
   
   return (
-  <Droppable droppableId={"grid" + "-" + `${row}` + "-" + `${col}`}>
-    {(provided) => (
-      <div className = "card" style={{backgroundImage: `url(${item.image_url})`, backgroundSize: 'cover', transform: item.inverted ? 'rotate(180deg)': null}} {...provided.droppableProps} ref={provided.innerRef} index = {`${col + row}`}>
-        <div> </div>
-        {provided.placeholder}
-        {/* <div id={row.toString() + "-" + col.toString()}>
-        {row.toString() + "-" + col.toString()}<br></br>
-        <div id={row.toString() + "-" + col.toString()}>
 
-        
-        </div>
-      </div> */}
+  <div className = "card" style={{backgroundImage: `url(${item.image_url})`, backgroundSize: 'cover', transform: item.inverted ? 'rotate(180deg)': null}}>
+
+  <Droppable droppableId={"grid" + "-" + `${row}` + "-" + `${col}`}>
+    {(provided, snapshot) => (
+      <div className = "grid-item-drop-zone" {...provided.droppableProps} ref={provided.innerRef}  index = {`${col + row}`} style = {{ background:  snapshot.isDraggingOver ? "lightblue" : null}}>
+        {provided.placeholder}
       </div>
     )}
   </Droppable>
+
+  </div>
+
   )
 }
 
