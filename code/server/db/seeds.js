@@ -20,7 +20,9 @@ db.game.insertOne({
                         "left-bottom": false,
                     },
                     "inverted": false,
-                    "image_url": "https://i.ibb.co/JsQNmwQ/left-right.png"
+                    "image_url": "https://i.ibb.co/JsQNmwQ/left-right.png",
+                    "flipped": false
+
                 },
         
                 {   "name:" : "path-left-to-bottom-to-right",
@@ -37,7 +39,9 @@ db.game.insertOne({
                         "left-bottom": true,
                     },
                     "inverted": false,
-                    "image_url": "https://i.ibb.co/93x3pmJ/left-to-bottom-to-right.png"
+                    "image_url": "https://i.ibb.co/93x3pmJ/left-to-bottom-to-right.png",
+                    "flipped": false
+
                 },
             
                 {   "name:" : "path-top-to-left",
@@ -54,7 +58,9 @@ db.game.insertOne({
                         "left-bottom": false,
                     },
                     "inverted": false,
-                    "image_url": "https://i.ibb.co/N9qB5Hq/top-left.png"
+                    "image_url": "https://i.ibb.co/N9qB5Hq/top-left.png",
+                    "flipped": false
+
                 },
 
                 {   "name:" : "path-bottom-to-left",
@@ -71,7 +77,9 @@ db.game.insertOne({
                         "left-bottom": true,
                     },
                     "inverted": false,
-                    "image_url": "https://i.ibb.co/b290VQf/top-to-right.png"
+                    "image_url": "https://i.ibb.co/b290VQf/top-to-right.png",
+                    "flipped": false
+
                 },
 
                 {   "name:" : "path-bottom-to-top",
@@ -88,7 +96,9 @@ db.game.insertOne({
                         "left-bottom": false,
                     },
                     "inverted": false,
-                    "image_url": "https://i.ibb.co/B4R57NG/bottom-to-top.png"
+                    "image_url": "https://i.ibb.co/B4R57NG/bottom-to-top.png",
+                    "flipped": false
+
                 },
 
                 {   "name:" : "path-bottom-to-left-to-top",
@@ -105,7 +115,9 @@ db.game.insertOne({
                         "left-bottom": true,
                     },
                     "inverted": false,
-                    "image_url": "https://i.ibb.co/mG4wcTk/bottom-to-left-to-top.png"
+                    "image_url": "https://i.ibb.co/mG4wcTk/bottom-to-left-to-top.png",
+                    "flipped": false
+
                 },
 
                 {   "name:" : "path-cross",
@@ -122,7 +134,9 @@ db.game.insertOne({
                         "left-bottom": true,
                     },
                     "inverted": false,
-                    "image_url": "https://i.ibb.co/QcsqgnV/cross.png"
+                    "image_url": "https://i.ibb.co/QcsqgnV/cross.png",
+                    "flipped": false
+
                 },
 
                 { "name:" : "start-card",
@@ -139,7 +153,9 @@ db.game.insertOne({
                         "left-bottom": true,
                     },
                     "inverted": false,
-                    "image_url": "https://i.ibb.co/QcsqgnV/cross.png"
+                    "image_url": "https://i.ibb.co/QcsqgnV/cross.png",
+                    "flipped": false
+
 
                 }
         
@@ -201,28 +217,37 @@ db.game.insertOne({
                 "image_url" : "https://i.ibb.co/LdYgySR/gold-backs-chars.png"
             }
         },
-        
 
         "gold_card": {
-            "front_url": "https://i.ibb.co/Fg1r5Tn/gold-card.png",
-            "back_url" : "https://i.ibb.co/LdYgySR/gold-backs-chars.png"
+            "image_url": "https://i.ibb.co/Fg1r5Tn/gold-card.png",
+            "back_url" : "https://i.ibb.co/LdYgySR/gold-backs-chars.png",
+            "inverted": false,
+            "flipped": true
         },
 
         "coal_card": {
-            "front_url": "https://i.ibb.co/gRRBFQd/coal-card.png",
-            "back_url" : "https://i.ibb.co/LdYgySR/gold-backs-chars.png"
+            "image_url": "https://i.ibb.co/gRRBFQd/coal-card.png",
+            "back_url" : "https://i.ibb.co/LdYgySR/gold-backs-chars.png",
+            "inverted": false,
+            "flipped": true
         },
         "nugget_one" : {
-            "front_url": "https://i.ibb.co/cNy4hv6/nugget-one.png",
-            "back_url": "https://i.ibb.co/wKpygqT/gold-back.png"
+            "image_url": "https://i.ibb.co/cNy4hv6/nugget-one.png",
+            "back_url": "https://i.ibb.co/wKpygqT/gold-back.png",
+            "inverted": false,
+            "flipped": true
         },
         "nugget_two" : {
             "front_url": "https://i.ibb.co/j6Rn6sN/nugget-two.png",
-            "back_url": "https://i.ibb.co/wKpygqT/gold-back.png"
+            "back_url": "https://i.ibb.co/wKpygqT/gold-back.png",
+            "inverted": false,
+            "flipped": true
         },
         "nugget_three" : {
             "front_url": "https://i.ibb.co/ssVG6PZ/nugget-three.png",
-            "back_url": "https://i.ibb.co/wKpygqT/gold-back.png"
+            "back_url": "https://i.ibb.co/wKpygqT/gold-back.png",
+            "inverted": false,
+            "flipped": true
         },
     },
 
