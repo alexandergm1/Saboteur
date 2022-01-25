@@ -12,7 +12,7 @@ function HandList({cards, handleOnClickInvert}) {
   return (
    
     <div className = "hand-container">
-    <div>
+    <div id='hand-wrapper'>
     <Droppable droppableId="cards" direction="horizontal">
       {(provided) => (
         <div id="hand-list" {...provided.droppableProps} ref={provided.innerRef}>
@@ -22,7 +22,7 @@ function HandList({cards, handleOnClickInvert}) {
       )}
     </Droppable>
     </div>
-    <div>
+    <div id='bin-wrapper'>
     <Droppable droppableId="discard">
       {(provided) => (
           <div id="discard" {...provided.droppableProps} ref={provided.innerRef} index = "7">

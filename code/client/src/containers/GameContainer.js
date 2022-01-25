@@ -9,14 +9,14 @@ import { io } from 'socket.io-client'
 import {getData} from '../services/FetchService'
 import {handleOnDragEnd} from '../services/GameService'
 
-function GameContainer() {
+function GameContainer({playerName, gameType, roomID}) {
   
   const [data, setData] = useState({});
-  const [loading, setLoading] = useState(true)
   const [clickToggle, setClickToggle] = useState(false)
   const [gameState, setGameState] = useState(false)
   const [playerHand, setPlayerHand] = useState([])
   const [deck, setDeck] = useState([])
+  const [players, setPlayers] = useState([])
 
   const [gridState, setGridState] = useState([
       [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
@@ -39,6 +39,7 @@ function GameContainer() {
   useEffect (() => {
     getData()
     .then(data => setData(data[0]))
+    
   },[])
   
   useEffect(() => {
@@ -153,7 +154,7 @@ function GameContainer() {
 
         <GameGrid  gridState={gridState}/>   
         <HandList cards={playerHand} reorderHand = {reorderHand} handleOnClickInvert = {handleOnClickInvert}/> 
-        <SideBar deck={deck} startClick={handleStartClick}/>
+        <SideBar deck={deck} startClick={handleStartClick} players={players}/>
 
       </DragDropContext>
       

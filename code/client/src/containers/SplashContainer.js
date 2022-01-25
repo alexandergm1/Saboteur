@@ -1,21 +1,24 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+import SplashMenu from '../components/SplashMenu';
+import SingleLogin from '../components/SingleLogin';
 
-class SplashContainer extends Component {
-    render() {
-        return (
-            <div className='splash-container'>
-                <div className='splash-menu'>
-                    <div className='button-wrapper'>
-                        <button className='single'>Single Player vs CPU</button>
-                        <button className='host'>Host Multiplayer</button>
-                        <button className='join'>Join Multiplayer</button>
-                        <button className='rules'>How to play</button>
-                    </div>
-                    
-                </div>
-            </div>
-        );
+const SplashContainer = ({handleEnterClick})=>  {
+
+    const[selector, setSelector] = useState("menu");
+
+    const handleClick = (value) => {
+        setSelector(value);
     }
+
+    if(selector === "menu"){
+
+        return <SplashMenu handleClick={handleClick}/>
+
+    } else if (selector === "single"){
+        return <SingleLogin handleEnterClick={handleEnterClick}/>
+    }
+    
 }
+
 
 export default SplashContainer;

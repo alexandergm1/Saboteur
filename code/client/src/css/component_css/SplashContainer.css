@@ -1,20 +1,18 @@
 body, html{
     height: 100%;
-    margin: 0;
+    margin: 0px;
+    
 }
 .splash-container{
     background-image: url('/saboteur_splash.jpeg');
     background-color: rgb(3, 3, 48);
-      /* Full height */
     height: 100vh;
-
-    /* Center and scale the image nicely */
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
 }
 
-.splash-menu{
+.content{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -25,21 +23,25 @@ body, html{
 
 .button-wrapper{
     display: grid;
-    width: 100%;
+    width: 80%;
+    height: 40%;
     grid-template-rows: 1fr 1fr 1fr 1fr;
     margin-top: 50px;
 }
 
-.single, .host, .join, .rules{
+.single, .host, .join, .rules, input#player-name{
     background-color: transparent;
     color: white;
-    width: 100;
-    height: 60px;
     margin: 10px;
     border: yellow 2px solid;
-    border-radius: 20px;
-    font-size: 20px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 3.5vh;
     transition: 0.3s;
+}
+input#player-name::placeholder{
+    color: rgba(238, 215, 12, 0.376);
+    text-align: center;
 }
 
 button.single:hover{
@@ -52,5 +54,5 @@ button.join:hover{
     background-color: rgba(0, 255, 64, 0.185);
 }
 button.rules:hover{
-    background-color: rgba(255, 0, 200, 0.185);
+    background-color: rgba(25, 0, 255, 0.185);
 }

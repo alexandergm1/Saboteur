@@ -1,8 +1,8 @@
 .menu-container{
     display: grid;
-    grid-template-rows: 1fr 6fr 1fr;
+    grid-template-rows: 1fr 5fr 1fr;
     min-width: 200px;
-    height: fit-content;
+  
     grid-area: side-bar;
     border: solid blue 1px;
 }
