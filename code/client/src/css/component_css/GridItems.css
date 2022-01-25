@@ -6,6 +6,7 @@
 }
 
 .grid-item img {
+    object-fit: fill;
     height: 60px;
 }
 
@@ -15,6 +16,10 @@
     margin: 0px;
     border: 0px black;
     border-style: dashed;
+}
+.card{
+
+    background-position: center;
 }
 
 

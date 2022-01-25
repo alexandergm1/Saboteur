@@ -5,4 +5,7 @@ export const setUpPlayers = (playerNames, ) => {
     return players
 }
 
-
+export const getCPUPlayers = playerName => {
+    const players = [playerName, "Myrlyl Blackfinger", "Grilthrum Smeltfoot", "Malnus Merryshatter", "Brytnyss Icebraid"]
+    return players
+}

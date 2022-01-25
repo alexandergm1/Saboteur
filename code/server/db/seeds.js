@@ -1,16 +1,13 @@
 use saboteur;
 db.dropDatabase();
-
 db.game.insertOne({
     "cards": {
-
         "tile_cards":[{
-
                 "name:" : "path-left-to-right",
                 "entries": {
-                    "top": false, 
-                    "right": true, 
-                    "bottom": false, 
+                    "top": false,
+                    "right": true,
+                    "bottom": false,
                     "left": true
                     },
                     "connections": {
@@ -20,9 +17,9 @@ db.game.insertOne({
                         "left-bottom": false,
                     },
                     "inverted": false,
-                    "image_url": "https://i.ibb.co/JsQNmwQ/left-right.png"
+                    "image_url": "https://i.ibb.co/JsQNmwQ/left-right.png",
+                    "flipped": false
                 },
-        
                 {   "name:" : "path-left-to-bottom-to-right",
                     "entries": {
                         "top": false,
@@ -37,9 +34,9 @@ db.game.insertOne({
                         "left-bottom": true,
                     },
                     "inverted": false,
-                    "image_url": "https://i.ibb.co/93x3pmJ/left-to-bottom-to-right.png"
+                    "image_url": "https://i.ibb.co/93x3pmJ/left-to-bottom-to-right.png",
+                    "flipped": false
                 },
-            
                 {   "name:" : "path-top-to-left",
                     "entries": {
                         "top": true,
@@ -54,14 +51,14 @@ db.game.insertOne({
                         "left-bottom": false,
                     },
                     "inverted": false,
-                    "image_url": "https://i.ibb.co/N9qB5Hq/top-left.png"
+                    "image_url": "https://i.ibb.co/N9qB5Hq/top-left.png",
+                    "flipped": false
                 },
-
                 {   "name:" : "path-bottom-to-left",
                     "entries": {
                         "top": false,
                         "right": false,
-                        "bottom": true, 
+                        "bottom": true,
                         "left": true
                     },
                     "connections": {
@@ -71,14 +68,14 @@ db.game.insertOne({
                         "left-bottom": true,
                     },
                     "inverted": false,
-                    "image_url": "https://i.ibb.co/b290VQf/top-to-right.png"
+                    "image_url": "https://i.ibb.co/b290VQf/top-to-right.png",
+                    "flipped": false
                 },
-
                 {   "name:" : "path-bottom-to-top",
                     "entries": {
                         "top": true,
                         "right": false,
-                        "bottom": true, 
+                        "bottom": true,
                         "left": false
                     },
                     "connections": {
@@ -88,14 +85,14 @@ db.game.insertOne({
                         "left-bottom": false,
                     },
                     "inverted": false,
-                    "image_url": "https://i.ibb.co/B4R57NG/bottom-to-top.png"
+                    "image_url": "https://i.ibb.co/B4R57NG/bottom-to-top.png",
+                    "flipped": false
                 },
-
                 {   "name:" : "path-bottom-to-left-to-top",
                     "entries": {
                         "top": true,
                         "right": false,
-                        "bottom": true, 
+                        "bottom": true,
                         "left": true
                     },
                     "connections": {
@@ -105,14 +102,14 @@ db.game.insertOne({
                         "left-bottom": true,
                     },
                     "inverted": false,
-                    "image_url": "https://i.ibb.co/mG4wcTk/bottom-to-left-to-top.png"
+                    "image_url": "https://i.ibb.co/mG4wcTk/bottom-to-left-to-top.png",
+                    "flipped": false
                 },
-
                 {   "name:" : "path-cross",
                     "entries": {
                         "top": true,
                         "right": true,
-                        "bottom": true, 
+                        "bottom": true,
                         "left": true
                     },
                     "connections": {
@@ -122,14 +119,14 @@ db.game.insertOne({
                         "left-bottom": true,
                     },
                     "inverted": false,
-                    "image_url": "https://i.ibb.co/QcsqgnV/cross.png"
+                    "image_url": "https://i.ibb.co/QcsqgnV/cross.png",
+                    "flipped": false
                 },
-
                 { "name:" : "start-card",
                     "entries": {
                         "top": true,
                         "right": true,
-                        "bottom": true, 
+                        "bottom": true,
                         "left": true
                     },
                     "connections": {
@@ -139,14 +136,11 @@ db.game.insertOne({
                         "left-bottom": true,
                     },
                     "inverted": false,
-                    "image_url": "https://i.ibb.co/QcsqgnV/cross.png"
-
+                    "image_url": "https://i.ibb.co/QcsqgnV/cross.png",
+                    "flipped": false
                 }
-        
         ],
-
         "special_cards": {},
-
         "player_cards" :{
             "minner":{
                 "cobalt" : {
@@ -186,7 +180,6 @@ db.game.insertOne({
                 }
             },
         },
-        
         "card_backs":{
             deck_back : {
             "image_url": "https://i.ibb.co/qYQ2yxC/deck-back.png"
@@ -201,35 +194,41 @@ db.game.insertOne({
                 "image_url" : "https://i.ibb.co/LdYgySR/gold-backs-chars.png"
             }
         },
-        
-
         "gold_card": {
-            "front_url": "https://i.ibb.co/Fg1r5Tn/gold-card.png",
-            "back_url" : "https://i.ibb.co/LdYgySR/gold-backs-chars.png"
+            "image_url": "https://i.ibb.co/Fg1r5Tn/gold-card.png",
+            "back_url" : "https://i.ibb.co/LdYgySR/gold-backs-chars.png",
+            "inverted": false,
+            "flipped": true
         },
-
         "coal_card": {
-            "front_url": "https://i.ibb.co/gRRBFQd/coal-card.png",
-            "back_url" : "https://i.ibb.co/LdYgySR/gold-backs-chars.png"
+            "image_url": "https://i.ibb.co/gRRBFQd/coal-card.png",
+            "back_url" : "https://i.ibb.co/LdYgySR/gold-backs-chars.png",
+            "inverted": false,
+            "flipped": true
         },
         "nugget_one" : {
-            "front_url": "https://i.ibb.co/cNy4hv6/nugget-one.png",
-            "back_url": "https://i.ibb.co/wKpygqT/gold-back.png"
+            "image_url": "https://i.ibb.co/cNy4hv6/nugget-one.png",
+            "back_url": "https://i.ibb.co/wKpygqT/gold-back.png",
+            "inverted": false,
+            "flipped": true
         },
         "nugget_two" : {
             "front_url": "https://i.ibb.co/j6Rn6sN/nugget-two.png",
-            "back_url": "https://i.ibb.co/wKpygqT/gold-back.png"
+            "back_url": "https://i.ibb.co/wKpygqT/gold-back.png",
+            "inverted": false,
+            "flipped": true
         },
         "nugget_three" : {
             "front_url": "https://i.ibb.co/ssVG6PZ/nugget-three.png",
-            "back_url": "https://i.ibb.co/wKpygqT/gold-back.png"
+            "back_url": "https://i.ibb.co/wKpygqT/gold-back.png",
+            "inverted": false,
+            "flipped": true
         },
     },
-
    "game_state":{
         "deck": [],
         "player_cards": [],
-        "players": [], 
+        "players": [],
             // {
             //     "name": "string",
             //     "hand": [{tile_card Object},{...},{...},{...},{...}]
@@ -237,19 +236,16 @@ db.game.insertOne({
             //     "score": number,
             //     ...
             // }
-        // ],  
+        // ], 
         "game_grid": [],
             // {
             //     "row_ref": number,
             //     "col_ref": number,
             //     "card": {tile_card Object}
-            // }, 
-            // {...}, 
+            // },
+            // {...},
             // ...
         // ],
         "player_turn": null
     }
-
 })
-
- 

@@ -7,6 +7,7 @@ import './css/component_css/GridItems.css'
 import './css/component_css/HandList.css'
 import './css/component_css/SideBar.css'
 import './css/component_css/SplashContainer.css'
+import {getCPUPlayers} from './services/GameService'
 import SplashContainer from './containers/SplashContainer';
 import GameContainer from './containers/GameContainer';
 
@@ -18,7 +19,7 @@ function App() {
   const [roomID, setRoomID] = useState(null)
 
   const handleEnterClick = (player, game, room) => {
-      const players = [player];
+      const players = getCPUPlayers(player);
       setPlayerNames(players);
       setGameType(game);
       setRoomID(room);
