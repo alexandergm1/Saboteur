@@ -29,19 +29,16 @@ function GameContainer({playerNames, gameType, roomID}) {
 
   const socket = io('http://localhost:5000');
 
-  useEffect(()=>{
-    
-    socket.on('connect', ()=>console.log(socket.id))
-    socket.on('connect_error', ()=>{
-      setTimeout(()=>socket.connect(),5000)
-    })
-  },[])
-
   useEffect (() => {
     getData()
     .then(data => setData(data[0]));
     const data = setUpPlayers(playerNames);
     setPlayers(data)
+    socket.on('connect', ()=>console.log(socket.id))
+    socket.on('connect_error', ()=>{
+      setTimeout(()=>socket.connect(),5000)
+    })
+    return () => socket.off('connect')
   },[])
   
   
@@ -69,6 +66,7 @@ function GameContainer({playerNames, gameType, roomID}) {
     // Shuffle deck
     shuffleArray(deck);
     setDeck(deck);
+    socket.emit('update-deck', deck);
   }
 
   const shuffleArray = (array) => {

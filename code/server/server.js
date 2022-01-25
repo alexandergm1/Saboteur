@@ -34,6 +34,8 @@ io.on('connection', socket => {
     console.log(`User with ID: ${socket.id} joined room: ${room}`);
   })
 });
+
+
 server.listen(5000, function () {
   console.log(`Listening on port ${ this.address().port }`);
 });
