@@ -3,7 +3,6 @@ import Player from './Player';
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
 
 const SideBar = ({deck, startClick, players}) => {
-    console.log(players)
     const playerNodes = players.map((player, index) => {
         return <Player playerName={player.name} score={player.score} key={index}/>
     })

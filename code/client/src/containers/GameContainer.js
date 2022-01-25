@@ -49,6 +49,7 @@ function GameContainer({playerNames, gameType, roomID}) {
     setPlayers(data)
   },[])
 
+  
   useEffect (() => {
     socket.on('receive-grid-state', gridState => {
       setGridState(gridState)
@@ -56,18 +57,12 @@ function GameContainer({playerNames, gameType, roomID}) {
     socket.on('receive-deck', deck => {
       setDeck(deck)
     })
-    // socket.on('receive-hand', playerHand => {
-    //   setPlayerHand(playerHand)
-    // })
-
     return () => {
       socket.off("receive-grid-state");
       socket.off("receive-deck")
-      // socket.off('receive-hand')
     };
   }, [])
-  
-  
+
 
   useEffect(() => {
     if(!players) return 
@@ -75,11 +70,11 @@ function GameContainer({playerNames, gameType, roomID}) {
   }, [players])
   
   useEffect(() => {
-    if(gameState === true && Object.keys(data).length !== 0){
+    if(Object.keys(data).length !== 0){
     buildDeck();
     placeStartCards()
     }
-  }, [gameState])
+  }, [data])
 
   const buildDeck = () => {
     const deck = []
@@ -133,10 +128,20 @@ function GameContainer({playerNames, gameType, roomID}) {
   const handleStartClick = () => {
     if(!data) return
     dealHand();
-    setGameState(true);
-    setClickToggle(!clickToggle);
-    socket.emit('update-hand', playerHand)
+    setGameState(true)
+    playGame()
+
     socket.emit('update-deck', deck)
+  }
+
+  const playGame = () => {
+    while (gameState === true) {
+      for (let i = 0; i < players.length; i++) {
+        console.log(i);
+        
+      }
+      break
+    }
   }
 
   const reorderHand = (hand) => {

@@ -1,6 +1,6 @@
 export const setUpPlayers = (playerNames, ) => {
-    const players = playerNames.map((playerName) => {
-        return {name: playerName, score: 0}
+    const players = playerNames.map((playerName, index) => {
+        return {id: index, name: playerName, score: 0, active: false}
     })
     return players
 }
