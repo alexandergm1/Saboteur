@@ -31,7 +31,7 @@ function App() {
   if(!enterGame){
     return <SplashContainer handleEnterClick={handleEnterClick}/>
   } else {
-  return <GameContainer player={player} playerNames={playerNames} gameType={gameType} roomID={roomID}/>
+    return <GameContainer player={player} playerNames={playerNames} gameType={gameType} roomID={roomID}/>
   }
 }
 

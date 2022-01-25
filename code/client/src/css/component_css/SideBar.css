@@ -21,12 +21,15 @@ h4 {
 #deck{
     width :50px;
     height : 70px;
-    border : 1px solid black;
+    background-position: center;
+    background-size : cover;
+    border : 1px solid rgb(0, 0, 0);
     border-radius: 7px;
     display: flex;
     justify-content: center;
     align-items: flex-end;
     padding: 5px;
+    color: rgb(251, 253, 253);
 }
 .player-container{
     display: grid;

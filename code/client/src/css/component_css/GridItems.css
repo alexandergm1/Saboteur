@@ -14,12 +14,16 @@
     width: inherit;
     height: inherit;
     margin: 0px;
-    border: 0px black;
+    border: 1px black;
     border-style: dashed;
 }
-.card{
-
+.grid-card{
+    width :60px;
+    height : 80px;
+    border : 1px dashed black;
+    border-radius: 7px;
     background-position: center;
+    background-size: inherit;
 }
 
 

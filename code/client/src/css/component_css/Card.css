@@ -3,7 +3,7 @@
     height : 80px;
     border : 1px solid black;
     border-radius: 7px;
-    
+    background-position: center;
     background-size : cover;
 }
 #card-wrapper{
