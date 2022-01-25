@@ -1,0 +1,58 @@
+body, html{
+    height: 100%;
+    margin: 0px;
+    
+}
+.splash-container{
+    background-image: url('/saboteur_splash.jpeg');
+    background-color: rgb(3, 3, 48);
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 40%;
+    margin: auto;
+}
+
+.button-wrapper{
+    display: grid;
+    width: 80%;
+    height: 40%;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    margin-top: 50px;
+}
+
+.single, .host, .join, .rules, input#player-name{
+    background-color: transparent;
+    color: white;
+    margin: 10px;
+    border: yellow 2px solid;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 3.5vh;
+    transition: 0.3s;
+}
+input#player-name::placeholder{
+    color: rgba(238, 215, 12, 0.376);
+    text-align: center;
+}
+
+button.single:hover{
+    background-color: rgba(255, 255, 0, 0.185);
+}
+button.host:hover{
+    background-color: rgba(255, 0, 0, 0.185);
+}
+button.join:hover{
+    background-color: rgba(0, 255, 64, 0.185);
+}
+button.rules:hover{
+    background-color: rgba(25, 0, 255, 0.185);
+}

@@ -2,22 +2,21 @@ import React,{useEffect, useState} from 'react';
 import GameGrid from '../components/GameGrid'
 import HandList from '../components/HandList';
 import SideBar from '../components/SideBar';
-import Loading from '../components/Loading';
+import Splash from './SplashContainer';
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
 import { io } from 'socket.io-client'
 
 import {getData} from '../services/FetchService'
-import {handleOnDragEnd} from '../services/GameService'
+import {handleOnDragEnd, setUpPlayers} from '../services/GameService'
 
-function GameContainer() {
+function GameContainer({playerNames, gameType, roomID}) {
   
   const [data, setData] = useState({});
-  const [loading, setLoading] = useState(true)
   const [clickToggle, setClickToggle] = useState(false)
   const [gameState, setGameState] = useState(false)
   const [playerHand, setPlayerHand] = useState([])
   const [deck, setDeck] = useState([])
-
+  const [players, setPlayers] = useState([])
   const [gridState, setGridState] = useState([
       [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
       [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}], 
@@ -28,8 +27,10 @@ function GameContainer() {
       [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]    
   ])
 
+  const socket = io('http://localhost:5000');
+
   useEffect(()=>{
-    const socket = io('http://localhost:5000')
+    
     socket.on('connect', ()=>console.log(socket.id))
     socket.on('connect_error', ()=>{
       setTimeout(()=>socket.connect(),5000)
@@ -38,12 +39,17 @@ function GameContainer() {
 
   useEffect (() => {
     getData()
-    .then(data => setData(data[0]))
+    .then(data => setData(data[0]));
+    const data = setUpPlayers(playerNames);
+    setPlayers(data)
   },[])
   
+  
+
   useEffect(() => {
-    if(Object.keys(data).length === 0) return 
-  }, [data, clickToggle])
+    if(!players) return 
+    
+  }, [players])
   
   useEffect(() => {
     if(gameState === true && Object.keys(data).length !== 0){
@@ -55,13 +61,14 @@ function GameContainer() {
   const buildDeck = () => {
     const deck = []
     const cardData = Object.values(data.cards.tile_cards)
-    for (let step = 0; step < 5; step++){
+    // Might need to custimise this to reflect true numbers of individual cards!
+    for (let step = 0; step < 5; step++){ 
       for (let card of cardData)
         deck.push(Object.assign({}, card))
     }
     // Shuffle deck
     shuffleArray(deck);
-    setDeck(deck)
+    setDeck(deck);
   }
 
   const shuffleArray = (array) => {
@@ -72,6 +79,8 @@ function GameContainer() {
       [array[currentIndex], array[randomIndex]] = [
         array[randomIndex], array[currentIndex]];
     }
+    setDeck(deck)
+    
     return array
   }
   
@@ -87,6 +96,7 @@ function GameContainer() {
     tempArr[3].splice(9, 1, startCardsArray[1])
     tempArr[5].splice(9, 1, startCardsArray[2])
     setGridState(tempArr)
+    socket.emit('update-grid-state', gridState)
   }
 
   const dealHand = () => {
@@ -136,12 +146,14 @@ function GameContainer() {
         const tempArr = gridState
         tempArr[row].splice([col], 1, playerHand[result.source.index])
         setGridState(tempArr)
+        socket.emit('update-grid-state', gridState)
         //Discard from hand
         const items = Array.from(playerHand)
         items.splice(result.source.index, 1)
         reorderHand(items)
       } 
-        return
+      
+      return
     }
   }
 
@@ -154,19 +166,26 @@ function GameContainer() {
     setClickToggle(!clickToggle);
   }
 
-    return (
-      <div className= "game-container">
+  socket.on('receive-grid-state', gridState => {
+    setGridState(gridState)
+  })
+  socket.on('receive-deck', deck => {
+    setDeck(deck)
+  })
 
-        <DragDropContext onDragEnd= {handleOnDragEnd}>
+  return (
+    <div className= "game-container">
 
-          <GameGrid  gridState={gridState}/>   
-          <HandList cards={playerHand} reorderHand = {reorderHand} handleOnClickInvert = {handleOnClickInvert}/> 
-          <SideBar deck={deck} startClick={handleStartClick}/>
+      <DragDropContext onDragEnd= {handleOnDragEnd}>
 
-        </DragDropContext>
-        
-      </div>
-    )
+        <GameGrid  gridState={gridState}/>   
+        <HandList cards={playerHand} reorderHand = {reorderHand} handleOnClickInvert = {handleOnClickInvert}/> 
+        <SideBar deck={deck} startClick={handleStartClick} players={players}/>
+
+      </DragDropContext>
+      
+    </div>
+  )
 }
 
 export default GameContainer;
