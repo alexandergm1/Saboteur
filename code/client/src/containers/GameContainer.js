@@ -27,19 +27,45 @@ function GameContainer({playerNames, gameType, roomID}) {
       [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]    
   ])
 
-  const socket = io('http://localhost:5000');
+  const socket = io('http://localhost:5000', {
+    transports: ["websocket", "polling"],
+    rememberUpgrade: true,
+    maxHttpBufferSize: 1e8,
+
+  });
+
+  useEffect(() => {
+    socket.on('connect', ()=>console.log(socket.id))
+    socket.on('connect_error', ()=>{
+      setTimeout(()=>socket.connect(),5000)
+    })
+    return () => socket.off('connect')
+}, [])
 
   useEffect (() => {
     getData()
     .then(data => setData(data[0]));
     const data = setUpPlayers(playerNames);
     setPlayers(data)
-    socket.on('connect', ()=>console.log(socket.id))
-    socket.on('connect_error', ()=>{
-      setTimeout(()=>socket.connect(),5000)
-    })
-    return () => socket.off('connect')
   },[])
+
+  useEffect (() => {
+    socket.on('receive-grid-state', gridState => {
+      setGridState(gridState)
+    })
+    socket.on('receive-deck', deck => {
+      setDeck(deck)
+    })
+    // socket.on('receive-hand', playerHand => {
+    //   setPlayerHand(playerHand)
+    // })
+
+    return () => {
+      socket.off("receive-grid-state");
+      socket.off("receive-deck")
+      // socket.off('receive-hand')
+    };
+  }, [])
   
   
 
@@ -109,7 +135,8 @@ function GameContainer({playerNames, gameType, roomID}) {
     dealHand();
     setGameState(true);
     setClickToggle(!clickToggle);
-
+    socket.emit('update-hand', playerHand)
+    socket.emit('update-deck', deck)
   }
 
   const reorderHand = (hand) => {
@@ -164,12 +191,6 @@ function GameContainer({playerNames, gameType, roomID}) {
     setClickToggle(!clickToggle);
   }
 
-  socket.on('receive-grid-state', gridState => {
-    setGridState(gridState)
-  })
-  socket.on('receive-deck', deck => {
-    setDeck(deck)
-  })
 
   return (
     <div className= "game-container">
