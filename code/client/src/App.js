@@ -14,12 +14,14 @@ import GameContainer from './containers/GameContainer';
 function App() {
 
   const [enterGame, setEnterGame] = useState(false);
+  const [player, setPlayer] = useState(null);
   const [playerNames, setPlayerNames] = useState(null);
   const [gameType, setGameType] = useState(null);
   const [roomID, setRoomID] = useState(null)
 
   const handleEnterClick = (player, game, room) => {
       const players = getCPUPlayers(player);
+      setPlayer(player.replace(/\s/g, ''))
       setPlayerNames(players);
       setGameType(game);
       setRoomID(room);
@@ -29,7 +31,7 @@ function App() {
   if(!enterGame){
     return <SplashContainer handleEnterClick={handleEnterClick}/>
   } else {
-  return <GameContainer playerNames={playerNames} gameType={gameType} roomID={roomID}/>
+  return <GameContainer player={player} playerNames={playerNames} gameType={gameType} roomID={roomID}/>
   }
 }
 

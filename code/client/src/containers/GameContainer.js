@@ -9,7 +9,7 @@ import { io } from 'socket.io-client'
 import {getData} from '../services/FetchService'
 import {handleOnDragEnd, setUpPlayers} from '../services/GameService'
 
-function GameContainer({playerNames, gameType, roomID}) {
+function GameContainer({player, playerNames, gameType, roomID}) {
   
   const [data, setData] = useState({});
   const [clickToggle, setClickToggle] = useState(false)
@@ -45,8 +45,8 @@ function GameContainer({playerNames, gameType, roomID}) {
   useEffect (() => {
     getData()
     .then(data => setData(data[0]));
-    const data = setUpPlayers(playerNames);
-    setPlayers(data)
+    const players = setUpPlayers(playerNames);
+    setPlayers(players)
   },[])
 
   
@@ -92,7 +92,7 @@ function GameContainer({playerNames, gameType, roomID}) {
 
   const shuffleArray = (array) => {
     let currentIndex = array.length,  randomIndex
-    while (currentIndex != 0) {
+    while (currentIndex !== 0) {
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex--;
       [array[currentIndex], array[randomIndex]] = [
@@ -161,7 +161,7 @@ function GameContainer({playerNames, gameType, roomID}) {
       reorderHand(items) 
       return
     }
-    else if (result.destination.droppableId === "cards"){
+    else if (result.destination.droppableId.split("-").shift() === "cards"){
       const items = Array.from(playerHand)
       const [reorderedItem] = items.splice(result.source.index, 1)
       items.splice(result.destination.index, 0, reorderedItem)
@@ -169,20 +169,26 @@ function GameContainer({playerNames, gameType, roomID}) {
       return
     }
     else if (result.destination.droppableId.substring(0, 4) === "grid"){
-      const cardBeingPickedUp = playerHand[result.source.index]
-      const row = result.destination.droppableId.substring(5,6)
-      const col = result.destination.droppableId.substring(7)
-      if (legalMove(cardBeingPickedUp, row, col) === true){
-        const tempArr = gridState
-        tempArr[row].splice([col], 1, playerHand[result.source.index])
-        setGridState(tempArr)
-        socket.emit('update-grid-state', gridState)
-        //Discard from hand
-        const items = Array.from(playerHand)
-        items.splice(result.source.index, 1)
-        reorderHand(items)
+      // if user is active do this
+      const playerID = result.source.droppableId.split("-").pop();
+
+      const playerX = players.find(player => player.id === playerID)
+      console.log(players)
+      if(playerX.active === true){
+        const cardBeingPickedUp = playerHand[result.source.index]
+        const row = result.destination.droppableId.substring(5,6)
+        const col = result.destination.droppableId.substring(7)
+        if (legalMove(cardBeingPickedUp, row, col) === true){
+          const tempArr = gridState
+          tempArr[row].splice([col], 1, playerHand[result.source.index])
+          setGridState(tempArr)
+          socket.emit('update-grid-state', gridState)
+          //Discard from hand
+          const items = Array.from(playerHand)
+          items.splice(result.source.index, 1)
+          reorderHand(items)
+        } 
       } 
-      
       return
     }
   }
@@ -203,7 +209,7 @@ function GameContainer({playerNames, gameType, roomID}) {
       <DragDropContext onDragEnd= {handleOnDragEnd}>
 
         <GameGrid  gridState={gridState}/>   
-        <HandList cards={playerHand} reorderHand = {reorderHand} handleOnClickInvert = {handleOnClickInvert}/> 
+        <HandList player={player} cards={playerHand} reorderHand = {reorderHand} handleOnClickInvert = {handleOnClickInvert}/> 
         <SideBar deck={deck} startClick={handleStartClick} players={players}/>
 
       </DragDropContext>
