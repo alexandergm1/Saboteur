@@ -1,3 +1,8 @@
+h4 {
+    margin: 0px;
+    font-size: 2vh;
+}
+
 .menu-container{
     display: grid;
     grid-template-rows: 1fr 5fr 1fr;
@@ -25,10 +30,18 @@
 }
 .player-container{
     display: grid;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 50px 50px 50px 50px 50px 50px 50px 50px 50px;
+}
+#player{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+#player-name-wrapper, #player-score-wrapper {
+    display: flex;
+    flex-wrap: wrap;
     justify-content: flex-start;
-    align-items: flex-start;
-    margin-left: 15px;
+    align-items: center;
+    padding-left: 10px;
 }
 .button-container{
     display: flex;

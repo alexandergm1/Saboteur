@@ -7,9 +7,9 @@ import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
 import { io } from 'socket.io-client'
 
 import {getData} from '../services/FetchService'
-import {handleOnDragEnd} from '../services/GameService'
+import {handleOnDragEnd, setUpPlayers} from '../services/GameService'
 
-function GameContainer({playerName, gameType, roomID}) {
+function GameContainer({playerNames, gameType, roomID}) {
   
   const [data, setData] = useState({});
   const [clickToggle, setClickToggle] = useState(false)
@@ -38,13 +38,17 @@ function GameContainer({playerName, gameType, roomID}) {
 
   useEffect (() => {
     getData()
-    .then(data => setData(data[0]))
-    
+    .then(data => setData(data[0]));
+    const data = setUpPlayers(playerNames);
+    setPlayers(data)
   },[])
   
+  
+
   useEffect(() => {
-    if(Object.keys(data).length === 0) return 
-  }, [data, clickToggle])
+    if(!players) return 
+    
+  }, [players])
   
   useEffect(() => {
     if(gameState === true && Object.keys(data).length !== 0){

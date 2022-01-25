@@ -13,13 +13,13 @@ import GameContainer from './containers/GameContainer';
 function App() {
 
   const [enterGame, setEnterGame] = useState(false);
-  const [playerName, setPlayerName] = useState(null);
+  const [playerNames, setPlayerNames] = useState(null);
   const [gameType, setGameType] = useState(null);
   const [roomID, setRoomID] = useState(null)
 
   const handleEnterClick = (player, game, room) => {
-      console.log(player, game, room)
-      setPlayerName(player);
+      const players = [player];
+      setPlayerNames(players);
       setGameType(game);
       setRoomID(room);
       setEnterGame(true);
@@ -28,7 +28,7 @@ function App() {
   if(!enterGame){
     return <SplashContainer handleEnterClick={handleEnterClick}/>
   } else {
-  return <GameContainer playerName={playerName} gameType={gameType} roomID={roomID}/>
+  return <GameContainer playerNames={playerNames} gameType={gameType} roomID={roomID}/>
   }
 }
 
