@@ -87,7 +87,7 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
     const tile_cardData = Object.values(data.cards.tile_cards)
     // Might need to custimise this to reflect true numbers of individual cards!
     // 5x each tile card
-    for (let step = 0; step < 20; step++){
+    for (let step = 0; step < 7; step++){
       for (let card of tile_cardData)
         deck.push(Object.assign({}, card))
     }
@@ -142,9 +142,11 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
   const placeStartCards = () => {
     const tempArr = gridState
     let startCardsArray = []
-    startCardsArray.push(Object.assign({}, data.cards.gold_card))
+    let tempCoal = Object.assign({}, data.cards.gold_card)
+    tempCoal.inverted = false
+    startCardsArray.push(tempCoal)
     startCardsArray.push(Object.assign({}, data.cards.coal_card))
-    startCardsArray.push(Object.assign({}, data.cards.coal_card))
+    startCardsArray.push(tempCoal)
     shuffleArray(startCardsArray)
     tempArr[3].splice(1, 1, Object.assign({}, data.cards["start-card"]))
     tempArr[1].splice(9, 1, startCardsArray[0])
@@ -229,7 +231,7 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
       setTimeout
       (function() {
         return setTurnToggle(!turnToggle)
-      }, 7000);
+      }, 5000);
     }
     // starts Human turn
     if(playerTurn.active === false){
