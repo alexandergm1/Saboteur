@@ -18,6 +18,7 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
   const [gameState, setGameState] = useState(false)
   const [playerHand, setPlayerHand] = useState([])
   const [deck, setDeck] = useState([])
+  const [chartDeck, setChartDeck] = useState([])
   const [players, setPlayers] = useState([])
   const [playerTurns, setPlayerTurns] = useState([])
   const [playerTurn, setPlayerTurn] = useState({})
@@ -75,6 +76,7 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
       const playerTurn = playerTurns.shift();
       setPlayerTurn(playerTurn);
       buildDeck();
+      buildChartDeck();
       placeStartCards();
       
     }
@@ -114,6 +116,27 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
     }
     setDeck(deck)
     
+    return array
+  }
+
+  const buildChartDeck = () => {
+    const minDeck = Object.values(data.cards.player_cards.minner);
+    const sabDeck = Object.values(data.cards.player_cards.saboteur);
+    const tempDeck = [...minDeck, ...sabDeck]
+    console.log(chartDeck)
+    // shuffle chart card
+    const shuffledDeck = shuffleChartArray(tempDeck);
+    setChartDeck(shuffledDeck);
+    socket.emit('chart-deck', chartDeck)
+  }
+ // shuffle charArray function
+  const shuffleChartArray = (array) => {
+    let currentIndex = array.length, randomIndex
+    while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+      [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]]
+    }
     return array
   }
   
@@ -172,7 +195,8 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
 
       const result = dealCPUhands(playerTurns, deck);
       console.log(result)
-      setPagaaresult[0]);
+      setPlayerTurns(result[1]);
+      setDeck(result[0]);
     }
     setButtonToggle(!buttonToggle)
     socket.emit('update-deck', deck)
@@ -412,7 +436,7 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
 
           <GameGrid  gridState={gridState}/>   
           <HandList player={player} cards={playerHand} reorderHand = {reorderHand} handleOnClickInvert = {handleOnClickInvert}/> 
-          <SideBar deck={deck} backs={data.cards.card_backs} startClick={buttonToggle ? handleEndClick : handleStartClick} buttonToggle={buttonToggle} players={players}/>
+          <SideBar deck={deck} chartDeck={chartDeck} backs={data.cards.card_backs} startClick={buttonToggle ? handleEndClick : handleStartClick} buttonToggle={buttonToggle} players={players}/>
 
         </DragDropContext>
         
