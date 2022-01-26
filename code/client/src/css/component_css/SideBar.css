@@ -1,12 +1,12 @@
 h4 {
     margin: 0px;
-    font-size: 2vh;
+    font-size: 1.2vw;
 }
 
 .menu-container{
     display: grid;
     grid-template-rows: 1fr 5fr 1fr;
-    min-width: 200px;
+    min-width: 220px;
   
     grid-area: side-bar;
     border: solid blue 1px;
@@ -39,13 +39,23 @@ h4 {
     display: grid;
     grid-template-columns: 2fr 1fr;
 }
-#player-name-wrapper, #player-score-wrapper {
+#player-name-wrapper {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
     align-items: center;
-    padding-left: 10px;
+    padding-left: 20px;
+    padding-right: 10px;
 }
+#player-score-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 20px;
+    
+}
+
 .button-container{
     display: flex;
     justify-content: center;

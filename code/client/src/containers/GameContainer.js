@@ -8,7 +8,7 @@ import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
 import { io } from 'socket.io-client'
 
 import {getData} from '../services/FetchService'
-import {handleOnDragEnd, setUpPlayers, gridNeighbours, boarderTileCard, checkIfMakesPath, cardFitsNeighbours} from '../services/GameService'
+import {setUpPlayers} from '../services/GameService'
 
 function GameContainer({player, playerNames, gameType, roomID}) {
   
@@ -18,6 +18,9 @@ function GameContainer({player, playerNames, gameType, roomID}) {
   const [playerHand, setPlayerHand] = useState([])
   const [deck, setDeck] = useState([])
   const [players, setPlayers] = useState([])
+  const [playerTurns, setPlayerTurns] = useState([])
+  const [playerTurn, setPlayerTurn] = useState({})
+  const [turnToggle, setTurnToggle] = useState(true)
   const [gridState, setGridState] = useState([
       [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
       [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}], 
@@ -46,10 +49,14 @@ function GameContainer({player, playerNames, gameType, roomID}) {
   useEffect (() => {
     getData()
     .then(data => setData(data[0]));
-    const players = setUpPlayers(playerNames);
-    setPlayers(players)
+    // create area of player objects
+    const playerTurns = setUpPlayers(playerNames);
+    setPlayerTurns(playerTurns);
+    setPlayers(Object.assign([],playerTurns));
+    // shift out first object to set player to start game
+    const playerTurn = playerTurns.shift();
+    setPlayerTurn(playerTurn);
   },[])
-
   
   useEffect (() => {
     socket.on('receive-grid-state', gridState => {
@@ -68,7 +75,7 @@ function GameContainer({player, playerNames, gameType, roomID}) {
   useEffect(() => {
     if(Object.keys(data).length !== 0){
     buildDeck();
-    placeStartCards()
+    placeStartCards();
     }
   }, [data])
 
@@ -121,24 +128,48 @@ function GameContainer({player, playerNames, gameType, roomID}) {
     setDeck(tempArr)
   }
 
+  const dealCard = () => {
+    if(deck.length > 0){
+      let tempArr = deck
+      const card = tempArr.splice(0,1)
+      let tempHand = Object.assign([], playerHand) 
+      tempHand.push(card[0])
+      setPlayerHand(tempHand)
+      setDeck(tempArr)
+    } 
+  }
+
+
   const handleStartClick = () => {
     if(!data) return
-    dealHand();
     setGameState(true)
-    playGame()
 
     socket.emit('update-deck', deck)
   }
 
-  const playGame = () => {
-    // while (gameState === true) {
-    //   for (let i = 0; i < players.length; i++) {
-      let tempPlayers = Object.assign([], players)
-      tempPlayers[0].active = true
-      setPlayers(tempPlayers)
-      console.log(players)
-        
-  }
+    // controls players turns
+    useEffect(() => {
+      // Don't Start if false
+      if(gameState === false) return
+      dealHand();
+      // 
+      if(playerTurn.active === false){
+        const tempObj = Object.assign({}, playerTurn);
+        tempObj.active = true;
+        setPlayerTurn(tempObj);
+        return
+      }
+      if(playerTurn.active === true){
+        const tempObj = Object.assign({}, playerTurn);
+        tempObj.active = false;
+        setPlayerTurn(tempObj);
+        dealCard();
+        return
+      }
+      
+    }, [gameState, turnToggle])
+  
+  
 
   const reorderHand = (hand) => {
     setPlayerHand(hand)
@@ -201,7 +232,7 @@ function GameContainer({player, playerNames, gameType, roomID}) {
         Array.isArray(b) &&
         a.length === b.length &&
         a.every((val, index) => val === b[index]);
-}
+  }
 
   const cardFitsNeighbours = (card, neighbours) => {
     let cardEntries = []
@@ -212,7 +243,6 @@ function GameContainer({player, playerNames, gameType, roomID}) {
     }
     let resultNeighboursEntries = neighboursEntries(neighbours)
 
-    
     // console.log(resultNeighboursEntries)
     // console.log(cardEntries)
 
@@ -223,9 +253,7 @@ function GameContainer({player, playerNames, gameType, roomID}) {
       i += 1
     }
     // console.log(results)
-
     // console.log(arrayEquals(cardEntries, resultNeighboursEntries))
-
 
     return !results.includes(false)
   } 
@@ -289,10 +317,10 @@ function GameContainer({player, playerNames, gameType, roomID}) {
     }
     else if (result.destination.droppableId.substring(0, 4) === "grid"){
       // if user is active do this
+      console.log(result.source.droppableId)
       const playerID = result.source.droppableId.split("-").pop();
 
-      const playerX = players.find(player => player.id === playerID)
-      if(playerX.active === true){
+      if(playerTurn.id === playerID && playerTurn.active === true){
         const cardBeingPickedUp = playerHand[result.source.index]
         const row = result.destination.droppableId.substring(5,6)
         const col = result.destination.droppableId.substring(7)
@@ -306,9 +334,7 @@ function GameContainer({player, playerNames, gameType, roomID}) {
           items.splice(result.source.index, 1)
           reorderHand(items)
           // player places card on the grid -> set them inactiv
-          let tempPlayers = Object.assign([], players)
-          tempPlayers[0].active = false
-          setPlayers(tempPlayers)
+          setTurnToggle(!turnToggle)
         } 
         
       } 
