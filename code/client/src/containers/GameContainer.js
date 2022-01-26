@@ -82,11 +82,21 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
 
   const buildDeck = () => {
     const deck = []
-    const cardData = Object.values(data.cards.tile_cards)
+    const tile_cardData = Object.values(data.cards.tile_cards)
     // Might need to custimise this to reflect true numbers of individual cards!
-    for (let step = 0; step < 5; step++){ 
-      for (let card of cardData)
+    // 5x each tile card
+    for (let step = 0; step < 5; step++){
+      for (let card of tile_cardData)
         deck.push(Object.assign({}, card))
+    }
+    const blockerCardData = Object.values(data.cards["blocker-cards"])
+    // 1x each blocker
+    for (let card of blockerCardData){
+      deck.push(Object.assign({}, card))
+    }
+    //randomize inverted
+    for (let card of deck){
+      card.inverted = Boolean(Math.round(Math.random()))
     }
     // Shuffle deck
     shuffleArray(deck);
@@ -114,7 +124,7 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
     startCardsArray.push(Object.assign({}, data.cards.coal_card))
     startCardsArray.push(Object.assign({}, data.cards.coal_card))
     shuffleArray(startCardsArray)
-    tempArr[3].splice(1, 1, data.cards.tile_cards[7])
+    tempArr[3].splice(1, 1, Object.assign({}, data.cards["start-card"]))
     tempArr[1].splice(9, 1, startCardsArray[0])
     tempArr[3].splice(9, 1, startCardsArray[1])
     tempArr[5].splice(9, 1, startCardsArray[2])
@@ -167,13 +177,13 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
         setPlayerTurn(tempObj);
         return
       }
-      if(playerTurn.active === true){
-        const tempObj = Object.assign({}, playerTurn);
-        tempObj.active = false;
-        setPlayerTurn(tempObj);
-        dealCard();
-        return
-      }
+      // if(playerTurn.active === true){
+      //   const tempObj = Object.assign({}, playerTurn);
+      //   tempObj.active = false;
+      //   setPlayerTurn(tempObj);
+      //   dealCard();
+      //   return
+      // }
       
     }, [gameState, turnToggle])
   
@@ -271,28 +281,39 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
       // console.log(gridNeighbours(gridRow, gridCol))
       if (Object.keys(neighbour).length !== 0){
         // console.log(neighbour)
-        if (neighbour["name:"].substring(0, 4) === "path" || neighbour["name:"].substring(0, 5) === "start") return true
+        if (neighbour["name"].substring(0, 4) === "path" || neighbour["name"].substring(0, 5) === "start") return true
       }
     }
     return false
   }
 
-  const checkIfMakesPath = (card, neighbours) => {
-    let resultNeighboursEntries = neighboursEntries(neighbours)
+  const checkIfMakesPath = (card, gridRow, gridCol) => {
+    let tempNeighbours = []
+    for (let neighbour of gridNeighbours(gridRow, gridCol)){
+      if (Object.keys(neighbour).length === 0){
+        tempNeighbours.push({})
+      }
+      else if (neighbour.name.substring(0, 4) !== "path" && neighbour.name.substring(0, 5) !== "start"){
+        tempNeighbours.push({})
+      }
+      else {
+        tempNeighbours.push(neighbour)
+      }
+      }
+    let resultNeighboursEntries = neighboursEntries(tempNeighbours)
     let cardEntries = []
     if (card.inverted){
       cardEntries = [card.entries.bottom, card.entries.left, card.entries.top, card.entries.right]
     } else {
       cardEntries = [card.entries.top, card.entries.right, card.entries.bottom, card.entries.left ]
     }
-
     let results = []
-    let i = 0
+    var i = 0
     for (let result of resultNeighboursEntries) {
       (result === true && cardEntries[i] === true ) ? results.push(true) : results.push(false)
       i += 1
     }
-    // console.log(results)
+    console.log(results)
     return results.includes(true)
   }
 
@@ -300,13 +321,13 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
     // check that card being placed boarders a tile card
     if (!boarderTileCard(gridRow, gridCol)) return console.log("Cant be placed here!")
     // check if card makes path with at least one bordering card
-    if (!checkIfMakesPath(cardSelected, gridNeighbours(gridRow, gridCol))) return console.log("Cant be placed here!")
+    if (!checkIfMakesPath(cardSelected, gridRow, gridCol)) return console.log("Cant be placed here!")
     // check if card is already placed in grid location
     if (Object.keys(gridState[gridRow][gridCol]).length !== 0) return console.log("Card already placed here!")
     // check if card fits in grid position with neighbours
     else if (cardFitsNeighbours(cardSelected, gridNeighbours(gridRow, gridCol))) return true
     else return false
-  } 
+  }
 
   function handleOnDragEnd(result){
 
@@ -373,7 +394,7 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
 
           <GameGrid  gridState={gridState}/>   
           <HandList player={player} cards={playerHand} reorderHand = {reorderHand} handleOnClickInvert = {handleOnClickInvert}/> 
-          <SideBar deck={deck} backs={data.cards.card_backs} startClick={buttonToggle ? handleEndClick : handleStartClick} buttonToggle={buttonToggle} players={players}/>
+          <SideBar deck={deck} backs={data.cards.card_backs} startClick={buttonToggle ? handleStartClick : handleStartClick} buttonToggle={buttonToggle} players={players}/>
 
         </DragDropContext>
         
