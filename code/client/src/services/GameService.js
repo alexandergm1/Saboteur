@@ -20,6 +20,30 @@ export const passTurn = (turn, turns) => {
     return [nextTurn, turns]
 }
 
+export const cpuTurn = (cpuPlayer, grid, deck) => {
+    const tempDeck = Object.assign([], deck);
+    const tempCpu = Object.assign({}, cpuPlayer);
+    const cpuPlayResult = cpuPlay(tempCpu.hand, grid);
+    if(cpuPlayResult.length === 0){
+        let randomIndex
+        if(tempCpu.hand.length === 1) {
+            randomIndex = 0
+        } else {
+            randomIndex = Math.floor(Math.random() * tempCpu.hand.length);
+        }
+        tempCpu.hand.splice(randomIndex, 1)
+        tempCpu.hand.push(tempDeck[0])
+        tempDeck.shift()
+        return [tempCpu, grid, tempDeck]
+    }
+
+}
+
+
+const cpuPlay = (hand, grid) => {
+    return []
+}
+
 export const gridNeighbours = (row, col, gridState) => {
     let neighbours = []
     row = Number(row)

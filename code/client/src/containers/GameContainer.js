@@ -7,7 +7,7 @@ import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
 import { io } from 'socket.io-client'
 
 import {getData} from '../services/FetchService'
-import {setUpPlayers, passTurn} from '../services/GameService'
+import {setUpPlayers, passTurn, cpuTurn} from '../services/GameService'
 import SplashContainer from './SplashContainer';
 
 function GameContainer({player, playerObjects, gameType, roomID}) {
@@ -204,37 +204,47 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
     }
   }
 
-  // const toggleTurn = () => setTurnToggle(!turnToggle);
+  function wait(ms){
+    var start = new Date().getTime();
+    var end = start;
+    while(end < start + ms) {
+      end = new Date().getTime();
+   }
+ }
 
   // controls players turns
   useEffect(() => {
     // Don't Start if false
     if(gameState === false) return
-    //
+    // CPU turn
     if(playerTurn.type === "CPU"){
-      console.log("i'm a CPU!")
+      // wait(2000);
+      const cpuTurnResult = cpuTurn(playerTurn, gridState, deck) 
+      console.log(cpuTurnResult)
+      setPlayerTurn(cpuTurnResult[0]);
+      setGridState(cpuTurnResult[1]);
+      setDeck(cpuTurnResult[2]);
       const result = passTurn(playerTurn, playerTurns)
       setPlayerTurn(result[0]);
       setPlayerTurns(result[1]);
       return setTurnToggle(!turnToggle)
     }
+    // starts Human turn
     if(playerTurn.active === false){
       const tempObj = Object.assign({}, playerTurn);
       tempObj.active = true;
       setPlayerTurn(tempObj);
       return
     }
-    console.log(playerHand)
+    // ends Human turn
     if(playerTurn.active === true && playerHand.length < 5 ){
-      console.log("i'm here!")
+  
       const tempObj = Object.assign({}, playerTurn);
       tempObj.active = false;
       setPlayerTurn(tempObj);
       const result = passTurn(playerTurn, playerTurns)
       setPlayerTurn(result[0]);
       setPlayerTurns(result[1]);
-      console.log(playerTurn)
-      console.log(result)
       dealCard();
       return setTurnToggle(!turnToggle)
     }
