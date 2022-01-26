@@ -7,17 +7,19 @@ h4 {
     display: grid;
     grid-template-rows: 1fr 5fr 1fr;
     min-width: 220px;
-  
+    margin-top: 30px;
+    margin-right: 40px;
     grid-area: side-bar;
-    border: solid blue 1px;
+    border: solid rgb(0, 0, 0) 1px;
+    border-radius: 7px;
+    background-color: rgba(255, 255, 255, 0.541);
 }
 .deck-container{
     display: flex;
     justify-content: space-evenly;
-    margin: 10px 15px 0px 15px;
+    margin: 15px 15px 0px 15px;
 
 }
-
 #deck{
     width :50px;
     height : 70px;
@@ -65,4 +67,7 @@ h4 {
 button.start {
     width: 200px;
     height: 50px;
+    background-color: transparent;
+    border-radius: 7px;
+    font-size: 2vw;
 }

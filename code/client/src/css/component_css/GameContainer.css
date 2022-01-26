@@ -1,16 +1,24 @@
 .game-container {
-    border: solid #000000 5px;
-    width: fit-content;
+    background-image: url('../../img/Stone.webp');
+   
+    background-color: rgb(168, 230, 255);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+    /* border: solid #000000 5px; */
+    /* width: fit-content; */
     height: fit-content;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 5px;
+    margin-top: 0px;
     padding: 15px;
     display: grid;
     grid-template-areas: 
         " . game-grid . side-bar"
         " . . . side-bar"
-        ". bottom-bar . side-bar";
+        ". bottom-bar . side-bar"
+        " . . . .";
     grid-template-columns: 1fr 11fr 1fr 5fr;
-    grid-template-rows: 9fr 0fr 1.5fr;
+    grid-template-rows: 9fr 0.2fr 1.5fr 0.5fr;
 }

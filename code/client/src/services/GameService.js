@@ -1,7 +1,8 @@
 export const setUpCPUPlayers = (playerNames) => {
     const players = playerNames.map((playerName, index) => {
         const player = playerName.replace(/\s/g, '');
-        return {index: index, id: player, name: playerName, score: 0, active: false}
+        if(index ===0) return{index: index, id: player, name: playerName, type : "human", score: 0, active: false}
+        else return {index: index, id: player, name: playerName, type : "CPU", hand : [], score: 0, active: false}
     })
     return players
 }
