@@ -139,6 +139,7 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
     setDeck(tempArr)
   }
 
+
   const dealCard = () => {
     if(deck.length > 0){
       let tempArr = deck
@@ -177,13 +178,13 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
         setPlayerTurn(tempObj);
         return
       }
-      // if(playerTurn.active === true){
-      //   const tempObj = Object.assign({}, playerTurn);
-      //   tempObj.active = false;
-      //   setPlayerTurn(tempObj);
-      //   dealCard();
-      //   return
-      // }
+      if(playerTurn.active === true){
+        const tempObj = Object.assign({}, playerTurn);
+        tempObj.active = false;
+        setPlayerTurn(tempObj);
+        dealCard();
+        return
+      }
       
     }, [gameState, turnToggle])
   
@@ -369,7 +370,6 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
           // player places card on the grid -> toggle to trigger end of turn
           setTurnToggle(!turnToggle)
         } 
-        
       } 
       return
     }
@@ -394,7 +394,7 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
 
           <GameGrid  gridState={gridState}/>   
           <HandList player={player} cards={playerHand} reorderHand = {reorderHand} handleOnClickInvert = {handleOnClickInvert}/> 
-          <SideBar deck={deck} backs={data.cards.card_backs} startClick={buttonToggle ? handleStartClick : handleStartClick} buttonToggle={buttonToggle} players={players}/>
+          <SideBar deck={deck} backs={data.cards.card_backs} startClick={buttonToggle ? handleEndClick : handleStartClick} buttonToggle={buttonToggle} players={players}/>
 
         </DragDropContext>
         
