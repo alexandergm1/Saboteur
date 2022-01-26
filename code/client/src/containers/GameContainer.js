@@ -7,7 +7,7 @@ import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
 import { io } from 'socket.io-client'
 
 import {getData} from '../services/FetchService'
-import {setUpPlayers, passTurn, cpuTurn} from '../services/GameService'
+import {setUpPlayers, passTurn} from '../services/GameService'
 import SplashContainer from './SplashContainer';
 
 function GameContainer({player, playerObjects, gameType, roomID}) {
@@ -204,13 +204,14 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
     }
   }
 
-  function wait(ms){
+  function wait(milliseconds) {
     var start = new Date().getTime();
-    var end = start;
-    while(end < start + ms) {
-      end = new Date().getTime();
-   }
- }
+    for (var i = 0; i < 1e7; i++) {
+      if ((new Date().getTime() - start) > milliseconds){
+        break;
+      }
+    }
+  }
 
   // controls players turns
   useEffect(() => {
@@ -218,9 +219,9 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
     if(gameState === false) return
     // CPU turn
     if(playerTurn.type === "CPU"){
-      // wait(2000);
+      wait(3000);
       const cpuTurnResult = cpuTurn(playerTurn, gridState, deck) 
-      console.log(cpuTurnResult)
+      // console.log(cpuTurnResult)
       setPlayerTurn(cpuTurnResult[0]);
       setGridState(cpuTurnResult[1]);
       setDeck(cpuTurnResult[2]);
@@ -423,6 +424,55 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
     console.log(gridNeighbours(row, col))
     setGridState(tempGrid)
   }
+
+
+
+  const cpuTurn = (cpuPlayer, grid, deck) => {
+    const tempDeck = Object.assign([], deck);
+    const tempCpu = Object.assign({}, cpuPlayer);
+    const cpuPlayResult = cpuPlay(tempCpu.hand, grid);
+    if(cpuPlayResult.length === 0){
+        let randomIndex
+        if(tempCpu.hand.length === 1) {
+            randomIndex = 0
+        } else {
+            randomIndex = Math.floor(Math.random() * tempCpu.hand.length);
+        }
+        tempCpu.hand.splice(randomIndex, 1)
+        tempCpu.hand.push(tempDeck[0])
+        tempDeck.shift()
+        return [tempCpu, grid, tempDeck]
+    }
+
+    tempCpu.hand.splice([cpuPlayResult[2]], 1)
+    tempCpu.hand.push(tempDeck[0])
+    tempDeck.shift()
+    const newGrid = cpuPlayResult[1]
+
+    return [tempCpu, newGrid, tempDeck]
+
+}
+
+
+const cpuPlay = (hand, grid) => {
+    let i = 0
+    for (let card of hand){
+      for (let col = 10; col > 0; col--){
+        for (let row = 6; row > 0; row--){
+          if (legalMove(card, row, col) === true){
+            grid[row].splice(col, 1, hand[i])
+            hand.splice(i, 1)
+            return [hand, grid, i]
+          }
+        }
+      }
+    i += 1
+    }
+    return []
+}
+
+
+
 
   const legalMove = (cardSelected, gridRow, gridCol) => {
     // check that card being placed boarders a tile card
