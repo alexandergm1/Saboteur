@@ -10,7 +10,7 @@ import { io } from 'socket.io-client'
 import {getData} from '../services/FetchService'
 import {setUpPlayers} from '../services/GameService'
 
-function GameContainer({player, playerNames, gameType, roomID}) {
+function GameContainer({player, playerObjects, gameType, roomID}) {
   
   const [data, setData] = useState({});
   const [clickToggle, setClickToggle] = useState(false)
@@ -49,14 +49,9 @@ function GameContainer({player, playerNames, gameType, roomID}) {
   useEffect (() => {
     getData()
     .then(data => setData(data[0]));
-    // create area of player objects
-    const playerTurns = setUpPlayers(playerNames);
-    setPlayerTurns(playerTurns);
-    setPlayers(Object.assign([],playerTurns));
-    // shift out first object to set player to start game
-    const playerTurn = playerTurns.shift();
-    setPlayerTurn(playerTurn);
-  },[])
+
+    setPlayerTurns(playerObjects);
+  }, [])
   
   useEffect (() => {
     socket.on('receive-grid-state', gridState => {
@@ -74,8 +69,12 @@ function GameContainer({player, playerNames, gameType, roomID}) {
   
   useEffect(() => {
     if(Object.keys(data).length !== 0){
-    buildDeck();
-    placeStartCards();
+      setPlayers(Object.assign([], playerTurns));
+      // shift out first object to set player to start game
+      const playerTurn = playerTurns.shift();
+      setPlayerTurn(playerTurn);
+      buildDeck();
+      placeStartCards();
     }
   }, [data])
 
@@ -317,7 +316,6 @@ function GameContainer({player, playerNames, gameType, roomID}) {
     }
     else if (result.destination.droppableId.substring(0, 4) === "grid"){
       // if user is active do this
-      console.log(result.source.droppableId)
       const playerID = result.source.droppableId.split("-").pop();
 
       if(playerTurn.id === playerID && playerTurn.active === true){

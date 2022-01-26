@@ -1,4 +1,4 @@
-export const setUpPlayers = (playerNames) => {
+export const setUpCPUPlayers = (playerNames) => {
     const players = playerNames.map((playerName, index) => {
         const player = playerName.replace(/\s/g, '');
         return {index: index, id: player, name: playerName, score: 0, active: false}
