@@ -219,16 +219,17 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
     if(gameState === false) return
     // CPU turn
     if(playerTurn.type === "CPU"){
-      wait(3000);
       const cpuTurnResult = cpuTurn(playerTurn, gridState, deck) 
-      // console.log(cpuTurnResult)
       setPlayerTurn(cpuTurnResult[0]);
       setGridState(cpuTurnResult[1]);
       setDeck(cpuTurnResult[2]);
       const result = passTurn(playerTurn, playerTurns)
       setPlayerTurn(result[0]);
       setPlayerTurns(result[1]);
-      return setTurnToggle(!turnToggle)
+      setTimeout
+      (function() {
+        return setTurnToggle(!turnToggle)
+      }, 7000);
     }
     // starts Human turn
     if(playerTurn.active === false){
@@ -555,7 +556,7 @@ const cpuPlay = (hand, grid) => {
 
           <GameGrid  gridState={gridState}/>   
           <HandList player={player} cards={playerHand} reorderHand = {reorderHand} handleOnClickInvert = {handleOnClickInvert}/> 
-          <SideBar deck={deck} chartDeck={chartDeck} backs={data.cards.card_backs} startClick={buttonToggle ? handleEndClick : handleStartClick} buttonToggle={buttonToggle} players={players}/>
+          <SideBar deck={deck} chartDeck={chartDeck} backs={data.cards.card_backs} startClick={buttonToggle ? handleEndClick : handleStartClick} buttonToggle={buttonToggle} players={players} playerTurn= {playerTurn}/>
 
         </DragDropContext>
         
