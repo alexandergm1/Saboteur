@@ -3,16 +3,17 @@ import GameGrid from '../components/GameGrid'
 import HandList from '../components/HandList';
 import SideBar from '../components/SideBar';
 import Loading from '../components/Loading'
-import Splash from './SplashContainer';
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
 import { io } from 'socket.io-client'
 
 import {getData} from '../services/FetchService'
 import {setUpPlayers} from '../services/GameService'
+import SplashContainer from './SplashContainer';
 
 function GameContainer({player, playerObjects, gameType, roomID}) {
   
   const [data, setData] = useState({});
+  const [buttonToggle, setButtonToggle] = useState(false)
   const [clickToggle, setClickToggle] = useState(false)
   const [gameState, setGameState] = useState(false)
   const [playerHand, setPlayerHand] = useState([])
@@ -70,11 +71,12 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
   useEffect(() => {
     if(Object.keys(data).length !== 0){
       setPlayers(Object.assign([], playerTurns));
-      // shift out first object to set player to start game
+      // shift out first object to set the player to start the game
       const playerTurn = playerTurns.shift();
       setPlayerTurn(playerTurn);
       buildDeck();
       placeStartCards();
+      
     }
   }, [data])
 
@@ -142,15 +144,22 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
   const handleStartClick = () => {
     if(!data) return
     setGameState(true)
-
+    dealHand();
+    setButtonToggle(!buttonToggle)
     socket.emit('update-deck', deck)
+  }
+
+  const handleEndClick = () => {
+    if(window.confirm("Click 'OK' if you are sure you want to leave the game?")){
+      window.location.reload(false);
+    }
   }
 
     // controls players turns
     useEffect(() => {
       // Don't Start if false
       if(gameState === false) return
-      dealHand();
+      
       // 
       if(playerTurn.active === false){
         const tempObj = Object.assign({}, playerTurn);
@@ -300,11 +309,18 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
   } 
 
   function handleOnDragEnd(result){
+
+    const playerID = result.source.droppableId.split("-").pop();
+
     if (!result.destination) return
     else if (result.destination.droppableId === "discard"){
-      const items = Array.from(playerHand)
-      items.splice(result.source.index, 1)
-      reorderHand(items) 
+      if(playerTurn.id === playerID && playerTurn.active === true){
+        const items = Array.from(playerHand)
+        items.splice(result.source.index, 1)
+        reorderHand(items)
+        // player places card on the grid -> toggle to trigger end of turn
+        setTurnToggle(!turnToggle)
+      }
       return
     }
     else if (result.destination.droppableId.split("-").shift() === "cards"){
@@ -315,9 +331,7 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
       return
     }
     else if (result.destination.droppableId.substring(0, 4) === "grid"){
-      // if user is active do this
-      const playerID = result.source.droppableId.split("-").pop();
-
+      // if user is active and it's their turn
       if(playerTurn.id === playerID && playerTurn.active === true){
         const cardBeingPickedUp = playerHand[result.source.index]
         const row = result.destination.droppableId.substring(5,6)
@@ -331,7 +345,7 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
           const items = Array.from(playerHand)
           items.splice(result.source.index, 1)
           reorderHand(items)
-          // player places card on the grid -> set them inactiv
+          // player places card on the grid -> toggle to trigger end of turn
           setTurnToggle(!turnToggle)
         } 
         
@@ -359,7 +373,7 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
 
           <GameGrid  gridState={gridState}/>   
           <HandList player={player} cards={playerHand} reorderHand = {reorderHand} handleOnClickInvert = {handleOnClickInvert}/> 
-          <SideBar deck={deck} backs={data.cards.card_backs} startClick={handleStartClick} players={players}/>
+          <SideBar deck={deck} backs={data.cards.card_backs} startClick={buttonToggle ? handleEndClick : handleStartClick} buttonToggle={buttonToggle} players={players}/>
 
         </DragDropContext>
         

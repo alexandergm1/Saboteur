@@ -2,7 +2,7 @@ import React from 'react';
 import Player from './Player';
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
 
-const SideBar = ({deck, backs, startClick, players}) => {
+const SideBar = ({deck, backs, startClick, buttonToggle, players}) => {
     const playerNodes = players.map((player, index) => {
         return <Player playerName={player.name} score={player.score} key={index}/>
     })
@@ -22,7 +22,7 @@ const SideBar = ({deck, backs, startClick, players}) => {
                 {playerNodes}
             </div>
             <div className='button-container'>
-                <button className='start' onClick={handleClick}>Start Game</button> 
+                <button className='start' onClick={handleClick}>{buttonToggle ? "Leave Game" : "Start Game"}</button> 
             </div>
         </div>
     );
