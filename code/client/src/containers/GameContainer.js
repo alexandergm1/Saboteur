@@ -7,7 +7,7 @@ import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
 import { io } from 'socket.io-client'
 
 import {getData} from '../services/FetchService'
-import {setUpPlayers} from '../services/GameService'
+import {setUpPlayers, passTurn} from '../services/GameService'
 import SplashContainer from './SplashContainer';
 
 function GameContainer({player, playerObjects, gameType, roomID}) {
@@ -123,7 +123,6 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
     const minDeck = Object.values(data.cards.player_cards.minner);
     const sabDeck = Object.values(data.cards.player_cards.saboteur);
     const tempDeck = [...minDeck, ...sabDeck]
-    console.log(chartDeck)
     // shuffle chart card
     const shuffledDeck = shuffleChartArray(tempDeck);
     setChartDeck(shuffledDeck);
@@ -165,12 +164,10 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
   const dealCPUhands = (cpuPlayers, deck) => {
     let tempDeck = deck;
     let tempPlayers = cpuPlayers;
-    console.log(tempPlayers)
     let cpuHands = []
     for (let i=0; i < tempPlayers.length; i++){
       tempPlayers[i].hand = tempDeck.splice(0,5)
     }
-    console.log(tempPlayers)
     return [tempDeck, tempPlayers]
   }
 
@@ -194,7 +191,6 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
     if(gameType === "single"){
 
       const result = dealCPUhands(playerTurns, deck);
-      console.log(result)
       setPlayerTurns(result[1]);
       setDeck(result[0]);
     }
@@ -208,24 +204,39 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
     }
   }
 
+  // const toggleTurn = () => setTurnToggle(!turnToggle);
+
   // controls players turns
   useEffect(() => {
     // Don't Start if false
     if(gameState === false) return
-    
-    // 
+    //
+    if(playerTurn.type === "CPU"){
+      console.log("i'm a CPU!")
+      const result = passTurn(playerTurn, playerTurns)
+      setPlayerTurn(result[0]);
+      setPlayerTurns(result[1]);
+      return setTurnToggle(!turnToggle)
+    }
     if(playerTurn.active === false){
       const tempObj = Object.assign({}, playerTurn);
       tempObj.active = true;
       setPlayerTurn(tempObj);
       return
     }
-    if(playerTurn.active === true){
+    console.log(playerHand)
+    if(playerTurn.active === true && playerHand.length < 5 ){
+      console.log("i'm here!")
       const tempObj = Object.assign({}, playerTurn);
       tempObj.active = false;
       setPlayerTurn(tempObj);
+      const result = passTurn(playerTurn, playerTurns)
+      setPlayerTurn(result[0]);
+      setPlayerTurns(result[1]);
+      console.log(playerTurn)
+      console.log(result)
       dealCard();
-      return
+      return setTurnToggle(!turnToggle)
     }
     
   }, [gameState, turnToggle])

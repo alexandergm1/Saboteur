@@ -12,6 +12,14 @@ export const getCPUPlayers = playerName => {
     return players
 }
 
+export const passTurn = (turn, turns) => {
+
+    turns.push(turn);
+    const nextTurn = turns.shift();
+
+    return [nextTurn, turns]
+}
+
 export const gridNeighbours = (row, col, gridState) => {
     let neighbours = []
     row = Number(row)
