@@ -139,6 +139,17 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
     setDeck(tempArr)
   }
 
+  const dealCPUhands = (cpuPlayers, deck) => {
+    let tempDeck = deck;
+    let tempPlayers = cpuPlayers;
+    console.log(tempPlayers)
+    let cpuHands = []
+    for (let i=0; i < tempPlayers.length; i++){
+      tempPlayers[i].hand = tempDeck.splice(0,5)
+    }
+    console.log(tempPlayers)
+    return [tempDeck, tempPlayers]
+  }
 
   const dealCard = () => {
     if(deck.length > 0){
@@ -156,6 +167,13 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
     if(!data) return
     setGameState(true)
     dealHand();
+    // if single player mode deal CPU hands
+    if(gameType === "single"){
+
+      const result = dealCPUhands(playerTurns, deck);
+      console.log(result)
+      setPagaaresult[0]);
+    }
     setButtonToggle(!buttonToggle)
     socket.emit('update-deck', deck)
   }
@@ -166,27 +184,27 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
     }
   }
 
-    // controls players turns
-    useEffect(() => {
-      // Don't Start if false
-      if(gameState === false) return
-      
-      // 
-      if(playerTurn.active === false){
-        const tempObj = Object.assign({}, playerTurn);
-        tempObj.active = true;
-        setPlayerTurn(tempObj);
-        return
-      }
-      if(playerTurn.active === true){
-        const tempObj = Object.assign({}, playerTurn);
-        tempObj.active = false;
-        setPlayerTurn(tempObj);
-        dealCard();
-        return
-      }
-      
-    }, [gameState, turnToggle])
+  // controls players turns
+  useEffect(() => {
+    // Don't Start if false
+    if(gameState === false) return
+    
+    // 
+    if(playerTurn.active === false){
+      const tempObj = Object.assign({}, playerTurn);
+      tempObj.active = true;
+      setPlayerTurn(tempObj);
+      return
+    }
+    if(playerTurn.active === true){
+      const tempObj = Object.assign({}, playerTurn);
+      tempObj.active = false;
+      setPlayerTurn(tempObj);
+      dealCard();
+      return
+    }
+    
+  }, [gameState, turnToggle])
   
   
 
