@@ -284,7 +284,7 @@ db.game.insertOne({
                 "yellow" : {
                     "image_url": "https://i.ibb.co/H2Ldmrp/saboteur-yellow.png"
                 }
-            }
+            },
         },
         "card_backs":{
             deck_back : {
