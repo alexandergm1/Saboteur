@@ -7,7 +7,7 @@ import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
 import { io } from 'socket.io-client'
 
 import {getData} from '../services/FetchService'
-import {setUpPlayers, passTurn, checkForWin, winner} from '../services/GameService'
+import {setUpPlayers, passTurn, checkForWin, winner, addScore} from '../services/GameService'
 import SplashContainer from './SplashContainer';
 
 function GameContainer({player, playerObjects, gameType, roomID}) {
@@ -245,6 +245,8 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
       // check for win
       if(checkForWin(gridState, goldCardRef)) {
         winner(playerTurn)
+        const result = addScore(players, playerTurn.name)
+        setPlayers(result)
         setGameState(false)
       }
       // end turn
@@ -273,6 +275,8 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
       // check for win
       if(checkForWin(gridState, goldCardRef)) {
         winner(playerTurn)
+        const result = addScore(players, playerTurn.name)
+        setPlayers(result)
         setGameState(false)
       }
       // pass turn to next player

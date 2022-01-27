@@ -29,3 +29,13 @@ export const checkForWin = (gridState, goldCardRef) => {
 export const winner = (player) => {
     window.alert(`${player.name} is the winner!`)
 }
+
+export const addScore = (players, name) => {
+    let tempPlayers = players;
+    for(const tempPlayer of tempPlayers){
+        if(tempPlayer.name == name){
+            tempPlayer.score = 5
+        }
+    }
+    return tempPlayers
+}
