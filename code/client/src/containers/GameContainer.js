@@ -7,7 +7,7 @@ import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
 import { io } from 'socket.io-client'
 
 import {getData} from '../services/FetchService'
-import {setUpPlayers, passTurn} from '../services/GameService'
+import {setUpPlayers, passTurn, checkForWin, winner} from '../services/GameService'
 import SplashContainer from './SplashContainer';
 
 function GameContainer({player, playerObjects, gameType, roomID}) {
@@ -146,10 +146,10 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
     let goldCardRef = []
     const tempArr = gridState
     let startCardsArray = []
-    let tempCoal = Object.assign({}, data.cards.gold_card)
+    let tempCoal = Object.assign({}, data.cards.coal_card)
     tempCoal.inverted = false
     startCardsArray.push(tempCoal)
-    startCardsArray.push(Object.assign({}, data.cards.coal_card))
+    startCardsArray.push(Object.assign({}, data.cards.gold_card))
     startCardsArray.push(tempCoal)
     shuffleArray(startCardsArray)
     tempArr[3].splice(1, 1, Object.assign({}, data.cards["start-card"]))
@@ -243,7 +243,10 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
       setGridState(cpuTurnResult[1]);
       setDeck(cpuTurnResult[2]);
       // check for win
-
+      if(checkForWin(gridState, goldCardRef)) {
+        winner(playerTurn)
+        setGameState(false)
+      }
       // end turn
       const result = passTurn(playerTurn, playerTurns)
       //pass turn to next player
@@ -252,7 +255,7 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
       setTimeout
       (function() {
         return setTurnToggle(!turnToggle)
-      }, 5000);
+      }, 1000);
     }
     // starts Human turn
     if(playerTurn.active === false){
@@ -268,8 +271,10 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
       tempObj.active = false;
       setPlayerTurn(tempObj);
       // check for win
-      // if gold card ref has been flipped = winner (sort of most of the time)
-      // also need to test connection from goldcard all the way back to start card :-(
+      if(checkForWin(gridState, goldCardRef)) {
+        winner(playerTurn)
+        setGameState(false)
+      }
       // pass turn to next player
       const result = passTurn(playerTurn, playerTurns)
       setPlayerTurn(result[0]);

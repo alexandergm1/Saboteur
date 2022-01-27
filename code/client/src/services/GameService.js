@@ -22,3 +22,10 @@ export const passTurn = (turn, turns) => {
     return [nextTurn, turns]
 }
  
+export const checkForWin = (gridState, goldCardRef) => {
+    return !gridState[goldCardRef[0]][goldCardRef[1]].flipped
+}
+
+export const winner = (player) => {
+    window.alert(`${player.name} is the winner!`)
+}
