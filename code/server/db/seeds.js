@@ -315,7 +315,7 @@ db.game.insertOne({
         },
         "coal_card": {
             "name" : "coal_card",
-            "image_url": "https://i.ibb.co/gRRBFQd/coal-card.png",
+            "image_url": "https://i.ibb.co/LNqhHCZ/coal-card.png",
             "back_url" : "https://i.ibb.co/QmG1rQL/Screenshot-2022-01-25-at-22-42-46.png",
             "inverted": false,
             "flipped": true,

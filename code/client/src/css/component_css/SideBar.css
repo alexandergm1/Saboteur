@@ -17,7 +17,7 @@ h4 {
 .deck-container{
     display: flex;
     justify-content: space-evenly;
-    margin: 15px 15px 0px 15px;
+    margin: 15px 15px 15px 15px;
 
 }
 #deck{
