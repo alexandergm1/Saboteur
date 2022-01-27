@@ -18,6 +18,7 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
   const [gameState, setGameState] = useState(false)
   const [playerHand, setPlayerHand] = useState([])
   const [playerChar, setPlayerChar] = useState({})
+  const [goldCardRef, setGoldCardRef] = useState([])
   const [deck, setDeck] = useState([])
   const [charDeck, setCharDeck] = useState([])
   const [nuggDeck, setNuggDeck] = useState([])
@@ -142,6 +143,7 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
   }
   
   const placeStartCards = () => {
+    let goldCardRef = []
     const tempArr = gridState
     let startCardsArray = []
     let tempCoal = Object.assign({}, data.cards.gold_card)
@@ -154,7 +156,11 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
     tempArr[1].splice(9, 1, startCardsArray[0])
     tempArr[3].splice(9, 1, startCardsArray[1])
     tempArr[5].splice(9, 1, startCardsArray[2])
+    if(startCardsArray[0].name === "gold_card") goldCardRef = [1, 9]
+    if(startCardsArray[1].name === "gold_card") goldCardRef = [3, 9]
+    if(startCardsArray[2].name === "gold_card") goldCardRef = [5, 9]
     setGridState(tempArr)
+    setGoldCardRef(goldCardRef)
     socket.emit('update-grid-state', gridState)
   }
 
@@ -231,11 +237,16 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
     if(gameState === false) return
     // CPU turn
     if(playerTurn.type === "CPU"){
+      // play turn
       const cpuTurnResult = cpuTurn(playerTurn, gridState, deck) 
       setPlayerTurn(cpuTurnResult[0]);
       setGridState(cpuTurnResult[1]);
       setDeck(cpuTurnResult[2]);
+      // check for win
+
+      // end turn
       const result = passTurn(playerTurn, playerTurns)
+      //pass turn to next player
       setPlayerTurn(result[0]);
       setPlayerTurns(result[1]);
       setTimeout
@@ -252,13 +263,18 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
     }
     // ends Human turn
     if(playerTurn.active === true && playerHand.length < 5 ){
-  
+      // stop human from placing any more cards on grid
       const tempObj = Object.assign({}, playerTurn);
       tempObj.active = false;
       setPlayerTurn(tempObj);
+      // check for win
+      // if gold card ref has been flipped = winner (sort of most of the time)
+      // also need to test connection from goldcard all the way back to start card :-(
+      // pass turn to next player
       const result = passTurn(playerTurn, playerTurns)
       setPlayerTurn(result[0]);
       setPlayerTurns(result[1]);
+      // pick up a card
       dealCard();
       return setTurnToggle(!turnToggle)
     }
