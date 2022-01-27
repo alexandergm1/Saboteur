@@ -288,13 +288,13 @@ db.game.insertOne({
         },
         "card_backs":{
             deck_back : {
-            "image_url": "https://i.ibb.co/qYQ2yxC/deck-back.png"
+            "image_url": "https://i.ibb.co/VLcH52W/deck-back.png"
             },
             nugget_back : {
-                "image_url": "https://i.ibb.co/wKpygqT/gold-back.png"
+                "image_url": "https://i.ibb.co/HTkLwT0/gold-back.png"
             },
             character_back : {
-                "image_url": "https://i.ibb.co/3vqtgzX/char-back.png"
+                "image_url": "https://i.ibb.co/Yd0x1kQ/char-back.png"
             },
             gold_back : {
                 "image_url" : "https://i.ibb.co/LdYgySR/gold-backs-chars.png"
@@ -328,19 +328,19 @@ db.game.insertOne({
         },
         "nugget_one" : {
             "image_url": "https://i.ibb.co/cNy4hv6/nugget-one.png",
-            "back_url": "https://i.ibb.co/wKpygqT/gold-back.png",
+            "back_url": "https://i.ibb.co/HTkLwT0/gold-back.png",
             "inverted": false,
             "flipped": true
         },
         "nugget_two" : {
             "front_url": "https://i.ibb.co/j6Rn6sN/nugget-two.png",
-            "back_url": "https://i.ibb.co/wKpygqT/gold-back.png",
+            "back_url": "https://i.ibb.co/HTkLwT0/gold-back.png",
             "inverted": false,
             "flipped": true
         },
         "nugget_three" : {
             "front_url": "https://i.ibb.co/ssVG6PZ/nugget-three.png",
-            "back_url": "https://i.ibb.co/wKpygqT/gold-back.png",
+            "back_url": "https://i.ibb.co/HTkLwT0/gold-back.png",
             "inverted": false,
             "flipped": true
         },
@@ -369,3 +369,6 @@ db.game.insertOne({
         "player_turn": null
     }
 })
+
+
+
