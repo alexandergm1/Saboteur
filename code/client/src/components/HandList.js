@@ -1,9 +1,11 @@
 import React from 'react';
 import Card from './Card';
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
+import CharCard from './CharCard';
 
-function HandList({player, cards, handleOnClickInvert}) {
-   const cardNodes =  cards.map((card, index) => {
+function HandList({player, cards, char, handleOnClickInvert}) {
+
+  const cardNodes =  cards.map((card, index) => {
     
         return (<Card key={index} card={card} index={index} handleOnClickInvert = {handleOnClickInvert}/>)
     })
@@ -30,6 +32,9 @@ function HandList({player, cards, handleOnClickInvert}) {
           </div>
       )}
     </Droppable>
+    </div>
+    <div id='char-wrapper'>
+      <CharCard char={char}/>
     </div>
     
   </div>

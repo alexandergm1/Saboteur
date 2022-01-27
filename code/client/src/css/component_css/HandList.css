@@ -1,11 +1,16 @@
 #hand-list{
     display : flex;
+    width: fit-content;
+}
+
+#hand-wrapper{
+    width: 380px;
 }
 
 .hand-container{
     grid-area: bottom-bar;
     display: grid;
-    grid-template-columns: 6fr 1fr 3fr;
+    grid-template-columns: 5fr 1fr 3fr;
     width: 670px;
     border: 1px solid black;
     padding: 5px;
@@ -26,6 +31,14 @@ img.delete{
     height: 85px;
     
 }
+#char-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-left: 15px;
+    margin-right: 15px;
+}
 #bin-wrapper{
     /* border: 1px solid black; */
 }
+

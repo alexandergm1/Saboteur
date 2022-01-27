@@ -17,8 +17,10 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
   const [clickToggle, setClickToggle] = useState(false)
   const [gameState, setGameState] = useState(false)
   const [playerHand, setPlayerHand] = useState([])
+  const [playerChar, setPlayerChar] = useState({})
   const [deck, setDeck] = useState([])
-  const [chartDeck, setChartDeck] = useState([])
+  const [charDeck, setCharDeck] = useState([])
+  const [nuggDeck, setNuggDeck] = useState([])
   const [players, setPlayers] = useState([])
   const [playerTurns, setPlayerTurns] = useState([])
   const [playerTurn, setPlayerTurn] = useState({})
@@ -76,7 +78,7 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
       const playerTurn = playerTurns.shift();
       setPlayerTurn(playerTurn);
       buildDeck();
-      buildChartDeck();
+      buildCharDeck();
       placeStartCards();
       
     }
@@ -119,17 +121,17 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
     return array
   }
 
-  const buildChartDeck = () => {
+  const buildCharDeck = () => {
     const minDeck = Object.values(data.cards.player_cards.minner);
     const sabDeck = Object.values(data.cards.player_cards.saboteur);
     const tempDeck = [...minDeck, ...sabDeck]
     // shuffle chart card
-    const shuffledDeck = shuffleChartArray(tempDeck);
-    setChartDeck(shuffledDeck);
-    socket.emit('chart-deck', chartDeck)
+    const shuffledDeck = shuffleCharArray(tempDeck);
+    setCharDeck(shuffledDeck);
+    socket.emit('chart-deck', charDeck)
   }
  // shuffle charArray function
-  const shuffleChartArray = (array) => {
+  const shuffleCharArray = (array) => {
     let currentIndex = array.length, randomIndex
     while (currentIndex !== 0) {
       randomIndex = Math.floor(Math.random() * currentIndex);
@@ -173,6 +175,13 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
     return [tempDeck, tempPlayers]
   }
 
+  const dealChar = () => {
+    let tempArr = charDeck;
+    const card = tempArr.shift()
+    setPlayerChar(card)
+    setCharDeck(tempArr)
+  }
+
   const dealCard = () => {
     if(deck.length > 0){
       let tempArr = deck
@@ -189,6 +198,7 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
     if(!data) return
     setGameState(true)
     dealHand();
+    dealChar();
     // if single player mode deal CPU hands
     if(gameType === "single"){
 
@@ -381,7 +391,6 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
       (result === true && cardEntries[i] === true ) ? results.push(true) : results.push(false)
       i += 1
     }
-    console.log(results)
     return results.includes(true)
   }
 
@@ -391,40 +400,30 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
     let col = Number(gridCol)
     let tempGrid = Object.assign({}, gridState)
     let tempNeighbours = gridNeighbours(row, col)
-    console.log(tempNeighbours)
 
       if (Object.keys(tempNeighbours[0]).length !== 0) {
         if (tempNeighbours[0].name.substring(0, 4) === "coal" || tempNeighbours[0].name.substring(0, 4) === "gold"){
-          console.log(tempGrid[row + 1][col])
           tempGrid[row + 1][col].flipped = false
         }
       }
 
       if (Object.keys(tempNeighbours[1]).length !== 0) {
         if (tempNeighbours[1].name.substring(0, 4) === "coal" || tempNeighbours[1].name.substring(0, 4) === "gold"){
-          console.log(tempGrid)
-          console.log(row)
-          console.log(col +1)
-          console.log(tempGrid[row][col + 1])
           tempGrid[row][col + 1].flipped = false
         }
       }
 
       if (Object.keys(tempNeighbours[2]).length !== 0) {
         if (tempNeighbours[2].name.substring(0, 4) === "coal" || tempNeighbours[2].name.substring(0, 4) === "gold"){
-          console.log(tempGrid[row + 1][col])
           tempGrid[row - 1][col].flipped = false
         }
       }
 
       if (Object.keys(tempNeighbours[3]).length !== 0) {
         if (tempNeighbours[3].name.substring(0, 4) === "coal" || tempNeighbours[3].name.substring(0, 4) === "gold"){
-          console.log(tempGrid[row + 1][col])
           tempGrid[row][col - 1].flipped = false
         }
       }
-    
-    console.log(gridNeighbours(row, col))
     setGridState(tempGrid)
   }
 
@@ -548,6 +547,7 @@ const cpuPlay = (hand, grid) => {
     setClickToggle(!clickToggle);
   }
 
+
   if(Object.keys(data).length === 0){
     return <Loading/>
   } else {
@@ -557,8 +557,8 @@ const cpuPlay = (hand, grid) => {
         <DragDropContext onDragEnd= {handleOnDragEnd}>
 
           <GameGrid  gridState={gridState}/>   
-          <HandList player={player} cards={playerHand} reorderHand = {reorderHand} handleOnClickInvert = {handleOnClickInvert}/> 
-          <SideBar deck={deck} chartDeck={chartDeck} backs={data.cards.card_backs} startClick={buttonToggle ? handleEndClick : handleStartClick} buttonToggle={buttonToggle} players={players} playerTurn= {playerTurn}/>
+          <HandList player={player} cards={playerHand} char={playerChar} reorderHand = {reorderHand} handleOnClickInvert = {handleOnClickInvert}/> 
+          <SideBar deck={deck} charDeck={charDeck} backs={data.cards.card_backs} startClick={buttonToggle ? handleEndClick : handleStartClick} buttonToggle={buttonToggle} players={players} playerTurn= {playerTurn}/>
 
         </DragDropContext>
         
