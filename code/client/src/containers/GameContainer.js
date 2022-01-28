@@ -428,7 +428,7 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
 
       if (Object.keys(tempNeighbours[0]).length !== 0) {
         if (tempNeighbours[0].name.substring(0, 4) === "coal" || tempNeighbours[0].name.substring(0, 4) === "gold"){
-          tempGrid[row + 1][col].flipped = false
+          tempGrid[row - 1][col].flipped = false
         }
       }
 
@@ -440,7 +440,7 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
 
       if (Object.keys(tempNeighbours[2]).length !== 0) {
         if (tempNeighbours[2].name.substring(0, 4) === "coal" || tempNeighbours[2].name.substring(0, 4) === "gold"){
-          tempGrid[row - 1][col].flipped = false
+          tempGrid[row + 1][col].flipped = false
         }
       }
 
